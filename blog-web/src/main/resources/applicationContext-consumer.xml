@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo">
+
+    <dubbo:application name="${blog.dubbo.name}"/>
+
+    <dubbo:registry address="${blog.dubbo.registry.address}"/>
+
+    <dubbo:reference id="dictionaryService" cluster="failfast"
+                     interface="com.kangyonggan.api.service.DictionaryService"
+                     lazy="true" check="false" version="${blog.dubbo.api.version}" timeout="${blog.dubbo.timeout}"/>
+
+    <dubbo:reference id="articleService" cluster="failfast"
+                     interface="com.kangyonggan.api.service.ArticleService"
+                     lazy="true" check="false" version="${blog.dubbo.api.version}" timeout="${blog.dubbo.timeout}"/>
+
+
+</beans>

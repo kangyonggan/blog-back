@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <group>
+        <!-- dubbo -->
+        <property name="blog.dubbo.name" description="项目名字" defaultValue="blog"/>
+        <property name="blog.dubbo.registry.address" description="dubbo注册地址"
+                  defaultValue="zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183"/>
+        <property name="blog.dubbo.protocol.port" description="dubbo注册端口" defaultValue="-1"/>
+        <property name="blog.dubbo.timeout" description="dubbo超时时间" defaultValue="10000"/>
+        <property name="blog.dubbo.api.version" description="api提供接口的版本" defaultValue="1.0.0"/>
+    </group>
+    <script>
+        <generate template="applicationContext-consumer.xml"/>
+    </script>
+</config>
