@@ -1,9 +1,10 @@
 <#assign ctx="${(rca.contextPath)!''}">
 
-<tr id="dictionary-${dictionary.id}">
+<tr id="dictionary-${dictionary.code}">
     <td>${dictionary.code}</td>
     <td><#include "type.ftl"></td>
-    <td>${dictionary.name}</td>
+    <td>${dictionary.value}</td>
+    <td>${dictionary.sort}</td>
     <td><#include "delete.ftl"></td>
     <td><@c.relative_date datetime=dictionary.createdTime/></td>
     <td>

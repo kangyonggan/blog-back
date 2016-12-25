@@ -35,7 +35,7 @@
                 <label>名称<span class="red">*</span></label>
             </div>
             <div class="col-md-7 controls">
-                <@spring.formInput "dictionary.name" 'class="form-control" placeholder="1至64个字符"'/>
+                <@spring.formInput "dictionary.value" 'class="form-control" placeholder="1至64个字符"'/>
             </div>
         </div>
     </div>

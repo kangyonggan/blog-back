@@ -87,6 +87,6 @@ $.extend($.validator.addMethod("isDeptCode", function (value) {
 }, "请输入纯小写字母,不超12位"));
 
 $.extend($.validator.addMethod("isDicCode", function (value) {
-    var str = /^[a-z][0-9a-z]{4,19}$/;
+    var str = /^[a-z][0-9a-z]{0,19}$/;
     return str.test(value);
 }, "请输入5至20位以字母开头的小写字母和数字的组合"));

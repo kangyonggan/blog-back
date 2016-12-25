@@ -1,5 +1,9 @@
 package com.kangyonggan.blog.web.controller.web;
 
+import com.kangyonggan.api.model.dto.reponse.CommonResponse;
+import com.kangyonggan.api.model.dto.request.FindDictionaryByCodeRequest;
+import com.kangyonggan.api.model.vo.Dictionary;
+import com.kangyonggan.api.service.DictionaryService;
 import com.kangyonggan.blog.biz.service.MenuService;
 import com.kangyonggan.blog.biz.service.RoleService;
 import com.kangyonggan.blog.biz.service.UserService;
@@ -8,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author kangyonggan
@@ -25,6 +31,9 @@ public class ValidateController {
 
     @Autowired
     private MenuService menuService;
+
+    @Resource
+    private DictionaryService dictionaryService;
 
     /**
      * 校验用户名是否可用
@@ -75,6 +84,28 @@ public class ValidateController {
         }
 
         return !menuService.existsMenuCode(code);
+    }
+
+    /**
+     * 校验字典代码是否可用
+     *
+     * @param code
+     * @param oldCode
+     * @return
+     */
+    @RequestMapping(value = "dictionary", method = RequestMethod.POST)
+    public boolean validateDictionaryCode(@RequestParam("code") String code,
+                                          @RequestParam(value = "oldCode", required = false, defaultValue = "") String oldCode) {
+        if (code.equals(oldCode)) {
+            return true;
+        }
+
+        FindDictionaryByCodeRequest request = new FindDictionaryByCodeRequest();
+        request.setCode(code);
+
+        CommonResponse<Dictionary> response = dictionaryService.findDictionaryByCode(request);
+
+        return response.getData() == null;
     }
 
 }

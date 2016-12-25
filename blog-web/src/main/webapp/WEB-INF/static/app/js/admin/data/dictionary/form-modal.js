@@ -20,7 +20,7 @@ $(function () {
                     }
                 }
             },
-            name: {
+            value: {
                 required: true,
                 rangelength: [1, 64]
             },

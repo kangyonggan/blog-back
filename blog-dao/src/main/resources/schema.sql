@@ -186,7 +186,8 @@ VALUES
 
   ('DASHBOARD_USER', '我的', 'dashboard', 'DASHBOARD', 'dashboard/user', 0, 'menu-icon fa fa-user'),
   ('DASHBOARD_USER_PROFILE', '个人信息', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/profile', 0, ''),
-  ('DASHBOARD_USER_PASSWORD', '修改密码', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/password', 1, '');
+  ('DASHBOARD_USER_PASSWORD', '修改密码', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/password', 1, ''),
+  ('DASHBOARD_USER_ARTICLE', '我的文章', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/article', 2, '');
 
 -- ----------------------------
 --  data for user_role
