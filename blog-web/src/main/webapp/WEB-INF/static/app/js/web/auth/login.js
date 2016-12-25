@@ -12,8 +12,8 @@ $(function () {
                 isPassword: true
             },
             captcha: {
-                // required: true,
-                // isCaptcha: true
+                required: true,
+                isCaptcha: true
             }
         },
         submitHandler: function () {

@@ -43,8 +43,8 @@
     </tr>
     </thead>
     <tbody>
-        <#if tags?size gt 0>
-            <#list tags as tag>
+        <#if page.list?size gt 0>
+            <#list page.list as dictionary>
                 <#include "table-tr.ftl"/>
             </#list>
         <#else>
