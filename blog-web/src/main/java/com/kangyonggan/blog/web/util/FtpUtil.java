@@ -58,7 +58,7 @@ public class FtpUtil {
             ftp = connect();
             String filePath = FileUpload.upload(file);
 
-            File file2 = new File(filePath);
+            File file2 = FileUpload.getAbsolutePath(filePath);
             in = new FileInputStream(file2);
             ftp.storeFile(file2.getName(), in);
 
