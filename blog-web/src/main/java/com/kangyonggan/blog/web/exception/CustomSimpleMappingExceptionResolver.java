@@ -18,6 +18,7 @@ public class CustomSimpleMappingExceptionResolver extends SimpleMappingException
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        log.error("控制器异常", ex);
         String viewName = determineViewName(ex, request);
         if (viewName != null) {
             if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
