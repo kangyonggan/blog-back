@@ -29,7 +29,7 @@
             <select multiple="" name="tagCodes" id="tagCodes" class="select2 width-100" data-placeholder="标签">
                 <#list dictionaries as tag>
                     <option value="${tag.code}"
-                            <#if tags?? && tags?seq_contains(tag.code)>selected</#if>>${tag.name}</option>
+                            <#if tags?? && tags?seq_contains(tag.code)>selected</#if>>${tag.value}</option>
                 </#list>
             </select>
         </div>
