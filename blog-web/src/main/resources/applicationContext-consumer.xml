@@ -10,12 +10,12 @@
 
     <dubbo:registry address="${blog.dubbo.registry.address}"/>
 
-    <dubbo:reference id="dictionaryService" cluster="failfast"
-                     interface="com.kangyonggan.api.service.DictionaryService"
+    <dubbo:reference id="apiDictionaryService" cluster="failfast"
+                     interface="com.kangyonggan.api.service.ApiDictionaryService"
                      lazy="true" check="false" version="${blog.dubbo.api.version}" timeout="${blog.dubbo.timeout}"/>
 
-    <dubbo:reference id="articleService" cluster="failfast"
-                     interface="com.kangyonggan.api.service.ArticleService"
+    <dubbo:reference id="apiArticleService" cluster="failfast"
+                     interface="com.kangyonggan.api.service.ApiArticleService"
                      lazy="true" check="false" version="${blog.dubbo.api.version}" timeout="${blog.dubbo.timeout}"/>
 
 

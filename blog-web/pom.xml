@@ -121,6 +121,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.kangyonggan.api</groupId>
             <artifactId>api-common</artifactId>
         </dependency>

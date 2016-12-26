@@ -3,12 +3,11 @@ package com.kangyonggan.blog.web.controller.admin;
 import com.kangyonggan.api.model.constants.DictionaryType;
 import com.kangyonggan.api.model.constants.ResponseState;
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
-import com.kangyonggan.api.model.dto.request.GetDictionaryRequest;
 import com.kangyonggan.api.model.dto.request.SaveDictionaryRequest;
 import com.kangyonggan.api.model.dto.request.SearchDictionariesRequest;
 import com.kangyonggan.api.model.dto.request.UpdateDictionaryByCodeRequest;
 import com.kangyonggan.api.model.vo.Dictionary;
-import com.kangyonggan.api.service.DictionaryService;
+import com.kangyonggan.api.service.ApiDictionaryService;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.web.controller.BaseController;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -33,7 +32,7 @@ import java.util.Map;
 public class AdminDataDictionaryController extends BaseController {
 
     @Resource
-    private DictionaryService dictionaryService;
+    private ApiDictionaryService apiDictionaryService;
 
     /**
      * 字典列表
@@ -52,7 +51,7 @@ public class AdminDataDictionaryController extends BaseController {
         request.setValue(value);
         request.setPageNum(pageNum);
         request.setPageSize(AppConstants.PAGE_SIZE);
-        CommonResponse<Dictionary> response = dictionaryService.searchDictionsries(request);
+        CommonResponse<Dictionary> response = apiDictionaryService.searchDictionsries(request);
 
         model.addAttribute("page", response.getPage());
         model.addAttribute("types", DictionaryType.values());
@@ -87,7 +86,7 @@ public class AdminDataDictionaryController extends BaseController {
         UpdateDictionaryByCodeRequest request = new UpdateDictionaryByCodeRequest();
         request.setCode(code);
         request.setIsDeleted((byte) (isDeleted.equals("delete") ? 1 : 0));
-        CommonResponse<Dictionary> response = dictionaryService.updateDictionaryByCode(request);
+        CommonResponse<Dictionary> response = apiDictionaryService.updateDictionaryByCode(request);
 
         model.addAttribute("dictionary", response.getData());
         return getPathTableTr();
@@ -111,10 +110,9 @@ public class AdminDataDictionaryController extends BaseController {
             request.setCode(dictionary.getCode());
             request.setType(DictionaryType.ARTICLE_TAG.getType());
             request.setValue(dictionary.getValue());
-            request.setPcode(dictionary.getPcode());
             request.setSort(dictionary.getSort());
 
-            CommonResponse<Dictionary> response = dictionaryService.saveDictionart(request);
+            CommonResponse<Dictionary> response = apiDictionaryService.saveDictionart(request);
             if (!response.getState().equals(ResponseState.Y)) {
                 setResultMapFailure(resultMap, response.getErrMsg());
             }
@@ -135,9 +133,7 @@ public class AdminDataDictionaryController extends BaseController {
     @RequestMapping(value = "{id:[\\d]+}/edit", method = RequestMethod.GET)
     @RequiresPermissions("ADMIN_DATA_DICTIONARY")
     public String edit(@PathVariable("id") Long id, Model model) {
-        GetDictionaryRequest request = new GetDictionaryRequest();
-        request.setId(id);
-        CommonResponse<Dictionary> response = dictionaryService.getDictionary(request);
+        CommonResponse<Dictionary> response = apiDictionaryService.getDictionary(id);
 
         model.addAttribute("dictionary", response.getData());
         model.addAttribute("types", DictionaryType.values());
@@ -160,7 +156,7 @@ public class AdminDataDictionaryController extends BaseController {
         if (!result.hasErrors()) {
             UpdateDictionaryByCodeRequest request = new UpdateDictionaryByCodeRequest();
             PropertyUtils.copyProperties(request, dictionary);
-            CommonResponse<Dictionary> response = dictionaryService.updateDictionaryByCode(request);
+            CommonResponse<Dictionary> response = apiDictionaryService.updateDictionaryByCode(request);
             if (!response.getState().equals(ResponseState.Y)) {
                 setResultMapFailure(resultMap, response.getErrMsg());
             }

@@ -1,0 +1,15 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="ftpUtil" class="com.kangyonggan.blog.web.util.FtpUtil">
+        <property name="path" value="upload"></property>
+        <property name="ip" value="upload"></property>
+        <property name="port" value="0"></property>
+        <property name="username" value="upload"></property>
+        <property name="password" value="upload"></property>
+    </bean>
+
+</beans>
