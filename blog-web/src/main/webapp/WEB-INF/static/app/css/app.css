@@ -1,24 +1,11 @@
 .error {
     color: red;
 }
+
 .empty {
     padding: 40px 0px;
     font-size: 14px;
     text-align: center;
-}
-
-.empty-message {
-    padding: 40px 0px;
-    font-size: 14px;
-    text-align: center;
-    border-left: 1px solid #f5f5f5;
-    border-right: 1px solid #f5f5f5;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.message-item a {
-    color: #333;
-    font-size: 15px;
 }
 
 input.disabled {
@@ -52,21 +39,6 @@ input[readonly].readonly {
     width: 10%;
 }
 
-.dept-tag {
-    display: block;
-    float: left;
-    margin-left: 10px;
-    margin-top: 7px;
-}
-
-.dept > span {
-    padding: 5px 8px;
-}
-
-/*.line-bg {*/
-    /*background: #dfe0e2 url(../../ace/dist/css/images/pattern.jpg) repeat !important;*/
-/*}*/
-
 .markdown-content {
     border: 1px dashed #BBB;
     padding: 15px;
@@ -76,8 +48,8 @@ input[readonly].readonly {
     max-width: 100% !important;
 }
 
-.markdown-content p,.markdown-content li {
-    font-family: PingFang SC,Hiragino Sans GB,Helvetica Neue,Microsoft Yahei,WenQuanYi Micro Hei,sans-serif;
+.markdown-content p, .markdown-content li {
+    font-family: PingFang SC, Hiragino Sans GB, Helvetica Neue, Microsoft Yahei, WenQuanYi Micro Hei, sans-serif;
     color: #2C3E50;
     font-size: 16px;
     line-height: 27px;
@@ -107,4 +79,33 @@ input[readonly].readonly {
     border-radius: 3px;
     color: #d14;
     font-weight: normal;
+}
+
+.tags {
+    width: 100% !important;
+    padding: 0 12px;
+}
+
+.tag {
+    margin: 8px 20px;
+}
+
+.item {
+    border-bottom: 1px solid #D5D5D5;
+    margin-top: 15px;
+    padding-bottom: 10px;
+}
+
+.article-title {
+    font-size: 20px;
+}
+
+.article-title > a {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-info {
+    margin-top: 5px;
+    font-size: 12px;
 }

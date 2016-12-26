@@ -83,6 +83,7 @@
         <junit.version>4.11</junit.version>
         <fastjson.version>1.2.8</fastjson.version>
         <persistence-api.version>1.0.2</persistence-api.version>
+        <pegdown.version>1.6.0</pegdown.version>
         <lombok.version>1.16.8</lombok.version>
         <commons-net.version>3.5</commons-net.version>
         <api-common.version>1.0-SNAPSHOT</api-common.version>
@@ -443,6 +444,11 @@
                 <groupId>javax.persistence</groupId>
                 <artifactId>persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pegdown</groupId>
+                <artifactId>pegdown</artifactId>
+                <version>${pegdown.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
