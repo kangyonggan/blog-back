@@ -123,7 +123,7 @@ public class DashboardUserArticleController extends BaseController {
             request.setContent(article.getContent());
             request.setTags(article.getTags());
 
-            if (!attachments.isEmpty()) {
+            if (attachments != null && !attachments.isEmpty()) {
                 List<Attachment> files = uploadAttachments(attachments);
                 request.setAttachments(files);
             }
@@ -227,6 +227,10 @@ public class DashboardUserArticleController extends BaseController {
         ShiroUser user = userService.getShiroUser();
 
         for (MultipartFile file : attachments) {
+            if (file.isEmpty()) {
+                continue;
+            }
+
             String path = ftpUtil.upload(file);
 
             Attachment attachment = new Attachment();
