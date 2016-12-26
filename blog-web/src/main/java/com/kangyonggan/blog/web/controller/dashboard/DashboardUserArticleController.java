@@ -151,7 +151,7 @@ public class DashboardUserArticleController extends BaseController {
 
         List<Dictionary> tags = apiDictionaryService.findDictionariesByArticleId(id).getList();
 
-        model.addAttribute("article", apiArticleService.getArticle(id));
+        model.addAttribute("article", apiArticleService.getArticle(id).getData());
         model.addAttribute("dictionaries", dictionaries);
         model.addAttribute("tags", Collections3.extractToList(tags, "code"));
         return getPathForm();
