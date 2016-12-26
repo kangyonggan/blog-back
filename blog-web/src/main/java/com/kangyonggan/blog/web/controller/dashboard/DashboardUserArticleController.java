@@ -17,6 +17,7 @@ import com.kangyonggan.blog.biz.service.UserService;
 import com.kangyonggan.blog.common.util.Collections3;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.model.vo.ShiroUser;
+import com.kangyonggan.blog.model.vo.User;
 import com.kangyonggan.blog.web.controller.BaseController;
 import com.kangyonggan.blog.web.util.FtpUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -111,12 +112,14 @@ public class DashboardUserArticleController extends BaseController {
     @RequiresPermissions("DASHBOARD_USER_ARTICLE")
     public String save(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
                        @ModelAttribute("article") @Valid Article article, BindingResult result) throws Exception {
-        ShiroUser user = userService.getShiroUser();
+        ShiroUser shiroUser = userService.getShiroUser();
+        User user = userService.findUserById(shiroUser.getId());
 
         if (!result.hasErrors()) {
             SaveArticleRequest request = new SaveArticleRequest();
             request.setTitle(article.getTitle());
             request.setCreateUsername(user.getUsername());
+            request.setCreateFullname(user.getFullname());
             request.setContent(article.getContent());
             request.setTags(article.getTags());
 
