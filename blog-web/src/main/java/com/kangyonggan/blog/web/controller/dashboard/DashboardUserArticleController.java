@@ -144,12 +144,12 @@ public class DashboardUserArticleController extends BaseController {
     @RequiresPermissions("DASHBOARD_USER_ARTICLE")
     public String edit(@PathVariable("id") Long id, Model model) {
         CommonResponse<Dictionary> response = apiDictionaryService.findDictionariesByType(DictionaryType.ARTICLE_TAG.getType());
-        List<Dictionary> allTags = response.getList();
+        List<Dictionary> dictionaries = response.getList();
 
         List<Dictionary> tags = apiDictionaryService.findDictionariesByArticleId(id).getList();
 
         model.addAttribute("article", apiArticleService.getArticle(id));
-        model.addAttribute("allTags", allTags);
+        model.addAttribute("dictionaries", dictionaries);
         model.addAttribute("tags", Collections3.extractToList(tags, "code"));
         return getPathForm();
     }
