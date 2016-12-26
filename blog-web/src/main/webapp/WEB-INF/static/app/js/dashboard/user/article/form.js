@@ -45,9 +45,9 @@ $(function () {
      * 提交
      */
     $("#submit").click(function () {
-        var tagCodes = $("#tagCodes").val();
+        var tags = $("#tags").val();
 
-        if (!tagCodes) {
+        if (!tags) {
             Notify.error("请选择标签");
             return false;
         }

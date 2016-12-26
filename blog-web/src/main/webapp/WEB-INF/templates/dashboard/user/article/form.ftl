@@ -26,7 +26,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right">标签</label>
         <div class="col-xs-12 col-sm-5">
-            <select multiple="" name="tagCodes" id="tagCodes" class="select2 width-100" data-placeholder="标签">
+            <select multiple="" name="tags" id="tags" class="select2 width-100" data-placeholder="标签">
                 <#list dictionaries as tag>
                     <option value="${tag.code}"
                             <#if tags?? && tags?seq_contains(tag.code)>selected</#if>>${tag.value}</option>
