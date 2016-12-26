@@ -5,11 +5,11 @@
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
     <bean id="ftpUtil" class="com.kangyonggan.blog.web.util.FtpUtil">
-        <property name="path" value="upload"></property>
-        <property name="ip" value="upload"></property>
-        <property name="port" value="0"></property>
-        <property name="username" value="upload"></property>
-        <property name="password" value="upload"></property>
+        <property name="path" value="${blog.ftp.path}"></property>
+        <property name="ip" value="${blog.ftp.ip}"></property>
+        <property name="port" value="${blog.ftp.port}"></property>
+        <property name="username" value="${blog.ftp.username}"></property>
+        <property name="password" value="${blog.ftp.password}"></property>
     </bean>
 
 </beans>

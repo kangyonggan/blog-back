@@ -19,5 +19,6 @@
     </group>
     <script>
         <generate template="applicationContext-consumer.xml"/>
+        <generate template="applicationContext-ftp.xml"/>
     </script>
 </config>
