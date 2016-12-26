@@ -1,9 +1,8 @@
 package com.kangyonggan.blog.web.controller.web;
 
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
-import com.kangyonggan.api.model.dto.request.FindDictionaryByCodeRequest;
 import com.kangyonggan.api.model.vo.Dictionary;
-import com.kangyonggan.api.service.DictionaryService;
+import com.kangyonggan.api.service.ApiDictionaryService;
 import com.kangyonggan.blog.biz.service.MenuService;
 import com.kangyonggan.blog.biz.service.RoleService;
 import com.kangyonggan.blog.biz.service.UserService;
@@ -33,7 +32,7 @@ public class ValidateController {
     private MenuService menuService;
 
     @Resource
-    private DictionaryService dictionaryService;
+    private ApiDictionaryService apiDictionaryService;
 
     /**
      * 校验用户名是否可用
@@ -100,10 +99,7 @@ public class ValidateController {
             return true;
         }
 
-        FindDictionaryByCodeRequest request = new FindDictionaryByCodeRequest();
-        request.setCode(code);
-
-        CommonResponse<Dictionary> response = dictionaryService.findDictionaryByCode(request);
+        CommonResponse<Dictionary> response = apiDictionaryService.findDictionaryByCode(code);
 
         return response.getData() == null;
     }
