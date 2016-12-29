@@ -77,16 +77,16 @@
                 </li>
             </ul>
         </@shiro.user>
-        <@shiro.guest>
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="${ctx}/login">登录</a>
-                </li>
-                <li>
-                    <a href="${ctx}/register">注册</a>
-                </li>
-            </ul>
-        </@shiro.guest>
+        <#--<@shiro.guest>-->
+            <#--<ul class="nav navbar-nav">-->
+                <#--<li>-->
+                    <#--<a href="${ctx}/login">登录</a>-->
+                <#--</li>-->
+                <#--<li>-->
+                    <#--<a href="${ctx}/register">注册</a>-->
+                <#--</li>-->
+            <#--</ul>-->
+        <#--</@shiro.guest>-->
         </div>
     </div>
 </div>
