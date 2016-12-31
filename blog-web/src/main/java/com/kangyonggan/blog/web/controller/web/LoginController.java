@@ -66,7 +66,7 @@ public class LoginController extends BaseController {
         final Subject subject = SecurityUtils.getSubject();
 
         try {
-            session.setMaxInactiveInterval(7 * 24 * 60 * 60);// 7天
+            session.setMaxInactiveInterval(30 * 24 * 60 * 60);// 30天
             subject.login(token);
         } catch (UnknownAccountException uae) {
             log.error("未知用户名", uae);
