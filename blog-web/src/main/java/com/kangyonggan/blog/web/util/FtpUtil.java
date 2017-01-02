@@ -42,7 +42,7 @@ public class FtpUtil {
             return null;
         }
         ftp.changeWorkingDirectory(path);
-        log.info("连接文件服务器成功, 上传路径page:" + path);
+        log.info("连接文件服务器成功, 上传路径path:" + path);
         return ftp;
     }
 
