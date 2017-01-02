@@ -1,6 +1,7 @@
 package com.kangyonggan.blog.web.shiro;
 
 import com.kangyonggan.api.common.service.RedisService;
+import lombok.extern.log4j.Log4j2;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author kangyonggan
  * @since 2016/12/31
  */
+@Log4j2
 public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {
 
     @Autowired
@@ -25,6 +27,7 @@ public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {
     @Override
     protected Serializable doCreate(Session session) {
         Serializable sessionId = super.doCreate(session);
+        log.error("创建session，保存到redis数据库,sessionId:" + sessionId);
         redisService.set(sessionId.toString(), session);
 
         return sessionId;
@@ -38,8 +41,10 @@ public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {
      */
     @Override
     protected Session doReadSession(Serializable sessionId) {
+        log.error("获取session,sessionId:" + sessionId);
         // 先从缓存中获取session，如果没有再去数据库中获取
         Session session = super.doReadSession(sessionId);
+        log.error("获取session,session:" + session);
         if (session == null) {
             session = (Session) redisService.get(sessionId.toString());
         }
@@ -64,6 +69,8 @@ public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {
      */
     @Override
     protected void doDelete(Session session) {
+        log.error("删除session,session:" + session);
+        log.error("删除session,sessionId:" + session.getId());
         super.doDelete(session);
         redisService.delete(session.getId().toString());
     }
