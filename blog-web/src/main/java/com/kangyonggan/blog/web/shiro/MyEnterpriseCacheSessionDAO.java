@@ -48,6 +48,7 @@ public class MyEnterpriseCacheSessionDAO extends EnterpriseCacheSessionDAO {
         if (session == null) {
             session = (Session) redisService.get(sessionId.toString());
         }
+        log.error("获取session2,session2:" + session);
         return session;
     }
 
