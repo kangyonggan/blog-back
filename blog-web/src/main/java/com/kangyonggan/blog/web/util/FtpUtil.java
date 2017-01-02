@@ -42,6 +42,7 @@ public class FtpUtil {
             return null;
         }
         ftp.changeWorkingDirectory(path);
+        log.info("连接文件服务器成功, 上传路径page:" + path);
         return ftp;
     }
 
@@ -59,9 +60,11 @@ public class FtpUtil {
             String filePath = FileUpload.upload(file);
 
             File file2 = FileUpload.getAbsolutePath(filePath);
+            log.info("将要上传的文件:" + file2);
             in = new FileInputStream(file2);
             ftp.storeFile(file2.getName(), in);
 
+            log.info("文件上传成功,path=" + path);
             return filePath;
         } catch (Exception e) {
             log.error("文件上传异常", e);
