@@ -55,12 +55,12 @@ public class FtpUtil {
         FTPClient ftp = null;
         FileInputStream in = null;
         try {
-//            ftp = connect();
+            ftp = connect();
             String filePath = FileUpload.upload(file);
 
-//            File file2 = FileUpload.getAbsolutePath(filePath);
-//            in = new FileInputStream(file2);
-//            ftp.storeFile(file2.getName(), in);
+            File file2 = FileUpload.getAbsolutePath(filePath);
+            in = new FileInputStream(file2);
+            ftp.storeFile(file2.getName(), in);
 
             return filePath;
         } catch (Exception e) {
