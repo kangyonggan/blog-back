@@ -134,6 +134,8 @@
                 <entry key="app_user" value-ref="userDirective"/>
                 <entry key="dashboard_menus" value-ref="dashboardMenusDirective"/>
                 <entry key="admin_menus" value-ref="adminMenusDirective"/>
+                <entry key="ftp_ip" value="${blog.ftp.ip}"/>
+                <entry key="ftp_web_port" value="${blog.ftp.web.port}"/>
             </map>
         </property>
     </bean>
