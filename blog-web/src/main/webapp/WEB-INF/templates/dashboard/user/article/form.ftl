@@ -12,7 +12,7 @@
 
 <@override name="content">
 <form id="article-form" method="post" enctype="multipart/form-data" class="form-horizontal"
-      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}?p=${p}&title=${title2}">
+      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}?p=${p}&t=${title2}">
 
     <#if article.id??>
         <input type="hidden" name="id" value="${article.id}"/>
