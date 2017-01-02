@@ -13,7 +13,6 @@
         <property name="blog.ftp.path" description="文件父目录" defaultValue="upload/"/>
         <property name="blog.ftp.ip" description="文件服务器地址" defaultValue="127.0.0.1"/>
         <property name="blog.ftp.port" description="文件服务器端口" defaultValue="21"/>
-        <property name="blog.ftp.web.port" description="文件服务器web端口" defaultValue="6789"/>
         <property name="blog.ftp.username" description="ftp登录用户名" defaultValue="ftp0"/>
         <property name="blog.ftp.password" description="ftp登录密码" defaultValue="123456"/>
 
@@ -21,6 +20,5 @@
     <script>
         <generate template="applicationContext-consumer.xml"/>
         <generate template="applicationContext-ftp.xml"/>
-        <generate template="applicationContext-mvc.xml"/>
     </script>
 </config>

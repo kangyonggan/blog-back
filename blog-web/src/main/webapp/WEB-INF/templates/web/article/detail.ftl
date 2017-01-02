@@ -52,7 +52,7 @@
             <div class="space-10"></div>
 
             <#list attachments as attachment>
-                <a href="<@ftp_ip />:<@ftp_web_port />/${attachment.path}" target="_blank">${attachment.name}</a>
+                <a href="http://kangyonggan.com:6789/${attachment.path}" target="_blank">${attachment.name}</a>
                 <div class="space-10"></div>
             </#list>
         </#if>
