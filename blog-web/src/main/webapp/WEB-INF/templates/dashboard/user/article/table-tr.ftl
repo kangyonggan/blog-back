@@ -17,7 +17,7 @@
 
             <ul class="dropdown-menu dropdown-menu-right dropdown-inverse">
                 <li>
-                    <a href="${ctx}/dashboard/user/article/${article.id}/edit?p=${p!'1'}">编辑</a>
+                    <a href="${ctx}/dashboard/user/article/${article.id}/edit?p=${p!'1'}&title=${title2}">编辑</a>
                 </li>
             </ul>
         </div>

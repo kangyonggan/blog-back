@@ -1,5 +1,7 @@
 <#assign title="${article.id???string('编辑文章', '添加文章')}">
 <#assign ptitle="我的">
+
+<#assign title2 = RequestParameters.title!'' />
 <#assign p = RequestParameters.p!'1' />
 
 <@override name="style">
@@ -10,7 +12,7 @@
 
 <@override name="content">
 <form id="article-form" method="post" enctype="multipart/form-data" class="form-horizontal"
-      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}?p=${p}">
+      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}?p=${p}&title=${title2}">
 
     <#if article.id??>
         <input type="hidden" name="id" value="${article.id}"/>

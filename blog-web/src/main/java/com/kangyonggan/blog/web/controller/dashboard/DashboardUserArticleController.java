@@ -162,6 +162,7 @@ public class DashboardUserArticleController extends BaseController {
      *
      * @param attachments
      * @param pageNum
+     * @param title
      * @param article
      * @param result
      * @return
@@ -171,6 +172,7 @@ public class DashboardUserArticleController extends BaseController {
     @RequiresPermissions("DASHBOARD_USER_ARTICLE")
     public String update(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
                          @RequestParam(value = "p", required = false, defaultValue = "1") int pageNum,
+                         @RequestParam(value = "title", required = false, defaultValue = "") String title,
                          @ModelAttribute("article") @Valid Article article, BindingResult result) throws Exception {
         if (!result.hasErrors()) {
             UpdateArticleWithAttachmentsRequest request = new UpdateArticleWithAttachmentsRequest();
@@ -191,7 +193,7 @@ public class DashboardUserArticleController extends BaseController {
             return "redirect:/" + getPathRoot() + "/" + article.getId() + "/edit";
         }
 
-        return "redirect:/" + getPathRoot() + "?p=" + pageNum;
+        return "redirect:/" + getPathRoot() + "?p=" + pageNum + "&title=" + title;
     }
 
     /**
