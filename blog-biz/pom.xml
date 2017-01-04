@@ -103,6 +103,10 @@
             <groupId>com.kangyonggan.api</groupId>
             <artifactId>api-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

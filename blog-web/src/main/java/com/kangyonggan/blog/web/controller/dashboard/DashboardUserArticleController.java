@@ -19,7 +19,8 @@ import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.model.vo.ShiroUser;
 import com.kangyonggan.blog.model.vo.User;
 import com.kangyonggan.blog.web.controller.BaseController;
-import com.kangyonggan.blog.web.util.FtpUtil;
+import com.kangyonggan.blog.web.util.FileUpload;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -50,9 +51,6 @@ public class DashboardUserArticleController extends BaseController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private FtpUtil ftpUtil;
 
     /**
      * 我的文章
@@ -222,8 +220,9 @@ public class DashboardUserArticleController extends BaseController {
      *
      * @param attachments
      * @return
+     * @throws FileUploadException
      */
-    private List<Attachment> uploadAttachments(List<MultipartFile> attachments) {
+    private List<Attachment> uploadAttachments(List<MultipartFile> attachments) throws FileUploadException {
         List<Attachment> files = new ArrayList();
 
         ShiroUser user = userService.getShiroUser();
@@ -233,7 +232,7 @@ public class DashboardUserArticleController extends BaseController {
                 continue;
             }
 
-            String path = ftpUtil.upload(file);
+            String path = FileUpload.upload(file);
 
             Attachment attachment = new Attachment();
             attachment.setPath(path);

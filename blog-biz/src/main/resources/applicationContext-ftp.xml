@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="ftpUtil" class="com.kangyonggan.blog.web.util.FtpUtil">
+    <bean id="ftpService" class="com.kangyonggan.blog.biz.service.impl.FtpServiceImpl">
         <property name="path" value="${blog.ftp.path}"></property>
         <property name="ip" value="${blog.ftp.ip}"></property>
         <property name="port" value="${blog.ftp.port}"></property>

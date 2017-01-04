@@ -25,12 +25,19 @@
         <property name="blog.redis.prefix.key" description="redis键的前缀" defaultValue="blog"/>
         <property name="blog.cache.open" description="是否开启缓存,Y:开启,N:不开启" defaultValue="Y"/>
 
+        <!--ftp-->
+        <property name="blog.ftp.path" description="文件父目录" defaultValue="upload/"/>
+        <property name="blog.ftp.ip" description="文件服务器地址" defaultValue="127.0.0.1"/>
+        <property name="blog.ftp.port" description="文件服务器端口" defaultValue="21"/>
+        <property name="blog.ftp.username" description="ftp登录用户名" defaultValue="ftp0"/>
+        <property name="blog.ftp.password" description="ftp登录密码" defaultValue="123456"/>
         <property name="blog.ftp.url" description="ftp文件路径" defaultValue="http://kangyonggan.com:6789"/>
     </group>
     <script>
         <generate template="app.properties"/>
         <generate template="applicationContext-datasource.xml"/>
         <generate template="applicationContext-redis.xml"/>
+        <generate template="applicationContext-ftp.xml"/>
         <generate template="log4j2.xml"/>
     </script>
 </config>
