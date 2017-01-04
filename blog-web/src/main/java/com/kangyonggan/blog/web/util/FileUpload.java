@@ -32,7 +32,7 @@ public class FileUpload {
                 File desc = getAbsolutePath(fileName);
                 file.transferTo(desc);
 
-                FtpUtil.upload(fileName);
+                FtpUtil.upload(desc.getName());
             } catch (Exception e) {
                 throw new FileUploadException("文件上传异常", e);
             }
