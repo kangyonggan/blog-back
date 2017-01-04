@@ -26,7 +26,7 @@
         <div class="col-xs-12 col-sm-5">
             <span class="profile-picture">
                 <img class="editable img-responsive"
-                     src="<#if user.largeAvatar?has_content>${ctx}/${user.largeAvatar}<#else>${ctx}/static/ace/dist/avatars/profile-pic.jpg</#if>"></img>
+                     src="<#if user.largeAvatar?has_content>${ftpUrl}/${user.largeAvatar}<#else>${ctx}/static/ace/dist/avatars/profile-pic.jpg</#if>"></img>
             </span>
         </div>
     </div>

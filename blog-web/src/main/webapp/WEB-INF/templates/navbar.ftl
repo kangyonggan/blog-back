@@ -36,7 +36,7 @@
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo"
-                             src="<#if principal_avatar?has_content>${ctx}/${principal_avatar}<#else>${ctx}/static/ace/dist/avatars/profile-pic.jpg</#if>"
+                             src="<#if principal_avatar?has_content>${ftpUrl}/${principal_avatar}<#else>${ctx}/static/ace/dist/avatars/profile-pic.jpg</#if>"
                              alt="<@app_user property="fullname" />"/>
                         <span class="user-info">
 									<small>欢迎,</small>

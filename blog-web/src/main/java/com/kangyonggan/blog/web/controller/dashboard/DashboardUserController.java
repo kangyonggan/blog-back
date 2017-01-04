@@ -5,6 +5,7 @@ import com.kangyonggan.blog.model.vo.ShiroUser;
 import com.kangyonggan.blog.model.vo.User;
 import com.kangyonggan.blog.web.controller.BaseController;
 import com.kangyonggan.blog.web.util.FileUpload;
+import com.kangyonggan.blog.web.util.FtpUtil;
 import com.kangyonggan.blog.web.util.Images;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -28,6 +29,9 @@ public class DashboardUserController extends BaseController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FtpUtil ftpUtil;
 
     /**
      * 修改密码
@@ -87,7 +91,7 @@ public class DashboardUserController extends BaseController {
                           @RequestParam(value = "avatar", required = false) MultipartFile avatar) throws FileUploadException {
         if (!result.hasErrors()) {
             if (!avatar.isEmpty()) {
-                String fileName = FileUpload.upload(avatar);
+                String fileName = ftpUtil.upload(avatar);
 
                 String large = Images.large(fileName);
                 user.setLargeAvatar(large);

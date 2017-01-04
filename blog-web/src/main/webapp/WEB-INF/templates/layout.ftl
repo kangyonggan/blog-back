@@ -48,16 +48,17 @@
 <@block name="app-style"/>
 </head>
 <body class="no-skin ${bodyClass!''}">
+<@apps>
 
-<#include "navbar.ftl"/>
+    <#include "navbar.ftl"/>
 
 <div class="main-container" id="main-container">
 
-<@block name="app-content"/>
+    <@block name="app-content"/>
 
-<#include "footer.ftl"/>
+    <#include "footer.ftl"/>
 
-<#include "modal.ftl">
+    <#include "modal.ftl">
 
     <a href="javascript:" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
@@ -74,6 +75,7 @@
 <script src="${ctx}/static/ace/dist/js/ace-elements.min.js"></script>
 <script src="${ctx}/static/ace/dist/js/ace.min.js"></script>
 <script src="${ctx}/static/app/js/app.js"></script>
-<@block name="app-script"/>
+    <@block name="app-script"/>
+</@apps>
 </body>
 </html>
