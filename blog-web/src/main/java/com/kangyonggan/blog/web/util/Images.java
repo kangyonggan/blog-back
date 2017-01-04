@@ -1,8 +1,6 @@
 package com.kangyonggan.blog.web.util;
 
-import com.kangyonggan.blog.biz.service.FtpService;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
-import com.kangyonggan.blog.biz.util.SpringUtils;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.fileupload.FileUploadException;
@@ -12,8 +10,6 @@ import org.apache.commons.fileupload.FileUploadException;
  * @since 2016/12/6
  */
 public class Images {
-
-    private static FtpService ftpService = SpringUtils.getBean(FtpService.class);
 
     //大Logo
     public static String large(String source) throws FileUploadException {
@@ -39,7 +35,7 @@ public class Images {
                     .keepAspectRatio(false)
                     .toFile(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + desc);
 
-            ftpService.upload(desc);
+            FtpUtil.upload(desc);
         } catch (Exception e) {
             throw new FileUploadException("文件转换异常", e);
         }

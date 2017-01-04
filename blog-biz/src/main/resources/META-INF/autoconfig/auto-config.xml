@@ -37,7 +37,6 @@
         <generate template="app.properties"/>
         <generate template="applicationContext-datasource.xml"/>
         <generate template="applicationContext-redis.xml"/>
-        <generate template="applicationContext-ftp.xml"/>
         <generate template="log4j2.xml"/>
     </script>
 </config>

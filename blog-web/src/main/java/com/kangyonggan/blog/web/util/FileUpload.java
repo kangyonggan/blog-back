@@ -1,9 +1,7 @@
 package com.kangyonggan.blog.web.util;
 
 import com.kangyonggan.api.common.util.DateUtils;
-import com.kangyonggan.blog.biz.service.FtpService;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
-import com.kangyonggan.blog.biz.util.SpringUtils;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
@@ -18,8 +16,6 @@ import java.io.IOException;
  * @since 2016/12/6
  */
 public class FileUpload {
-
-    private static FtpService ftpService = SpringUtils.getBean(FtpService.class);
 
     /**
      * 上传文件
@@ -36,7 +32,7 @@ public class FileUpload {
                 File desc = getAbsolutePath(fileName);
                 file.transferTo(desc);
 
-                ftpService.upload(fileName);
+                FtpUtil.upload(fileName);
             } catch (Exception e) {
                 throw new FileUploadException("文件上传异常", e);
             }

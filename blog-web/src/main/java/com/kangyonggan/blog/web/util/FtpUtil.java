@@ -1,9 +1,7 @@
-package com.kangyonggan.blog.biz.service.impl;
+package com.kangyonggan.blog.web.util;
 
-import com.kangyonggan.blog.biz.service.FtpService;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
@@ -14,15 +12,14 @@ import java.io.FileInputStream;
  * @author kangyonggan
  * @since 2017/1/4
  */
-@Data
 @Log4j2
-public class FtpServiceImpl implements FtpService {
+public class FtpUtil {
 
-    private String path;
-    private String ip;
-    private int port;
-    private String username;
-    private String password;
+    private static String path = PropertiesUtil.getProperties("ftp.path");
+    private static String ip = PropertiesUtil.getProperties("ftp.ip");
+    private static int port = Integer.parseInt(PropertiesUtil.getProperties("ftp.port"));
+    private static String username = PropertiesUtil.getProperties("ftp.username");
+    private static String password = PropertiesUtil.getProperties("ftp.password");
 
     /**
      * 登录ftp服务器
@@ -30,7 +27,7 @@ public class FtpServiceImpl implements FtpService {
      * @return
      * @throws Exception
      */
-    private FTPClient connect() throws Exception {
+    private static FTPClient connect() throws Exception {
         FTPClient ftp = new FTPClient();
         int reply;
         ftp.connect(ip, port);
@@ -53,7 +50,7 @@ public class FtpServiceImpl implements FtpService {
      * @param name
      * @return 返回在文件服务器的相对路径
      */
-    public String upload(String name) {
+    public static String upload(String name) {
         FTPClient ftp = null;
         FileInputStream in = null;
         try {
