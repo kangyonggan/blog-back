@@ -24,6 +24,8 @@
         <property name="blog.slow.interface.time" description="慢接口时间(秒)" defaultValue="10"/>
         <property name="blog.redis.prefix.key" description="redis键的前缀" defaultValue="blog"/>
         <property name="blog.cache.open" description="是否开启缓存,Y:开启,N:不开启" defaultValue="Y"/>
+
+        <property name="blog.ftp.url" description="ftp文件路径" defaultValue="http://kangyonggan.com:6789"/>
     </group>
     <script>
         <generate template="app.properties"/>

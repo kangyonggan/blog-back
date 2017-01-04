@@ -51,10 +51,12 @@
 
             <div class="space-10"></div>
 
-            <#list attachments as attachment>
-                <a href="http://kangyonggan.com:6789/${attachment.path}" target="_blank">${attachment.name}</a>
-                <div class="space-10"></div>
-            </#list>
+            <@apps>
+                <#list attachments as attachment>
+                    <a href="${ftpUrl}/${attachment.path}" target="_blank">${attachment.name}</a>
+                    <div class="space-10"></div>
+                </#list>
+            </@apps>
         </#if>
     </div>
 </div>
