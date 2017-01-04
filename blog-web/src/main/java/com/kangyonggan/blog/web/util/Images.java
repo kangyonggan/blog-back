@@ -35,7 +35,7 @@ public class Images {
                     .keepAspectRatio(false)
                     .toFile(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + desc);
 
-            FtpUtil.upload(desc.substring(7));
+            FtpUtil.upload(desc);
         } catch (Exception e) {
             throw new FileUploadException("文件转换异常", e);
         }

@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 /**
@@ -55,11 +56,12 @@ public class FtpUtil {
         FileInputStream in = null;
         try {
             ftp = connect();
-            in = new FileInputStream(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + name);
-            ftp.storeFile(name, in);
+            File file = new File(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + name);
+            in = new FileInputStream(file);
+            ftp.storeFile(file.getName(), in);
 
-            log.info("文件上传成功,name=" + name);
-            return name;
+            log.info("文件上传成功,name=" + file.getName());
+            return file.getName();
         } catch (Exception e) {
             log.error("文件上传异常", e);
         } finally {
