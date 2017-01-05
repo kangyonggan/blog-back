@@ -3,6 +3,7 @@ package com.kangyonggan.blog.web.controller.dashboard;
 import com.github.pagehelper.PageInfo;
 import com.kangyonggan.api.model.constants.AttachmentType;
 import com.kangyonggan.api.model.constants.DictionaryType;
+import com.kangyonggan.api.model.dto.reponse.AttachmentResponse;
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
 import com.kangyonggan.api.model.dto.request.SaveArticleRequest;
 import com.kangyonggan.api.model.dto.request.SearchArticlesRequest;
@@ -15,6 +16,7 @@ import com.kangyonggan.api.service.ApiArticleService;
 import com.kangyonggan.api.service.ApiDictionaryService;
 import com.kangyonggan.blog.biz.service.UserService;
 import com.kangyonggan.blog.common.util.Collections3;
+import com.kangyonggan.blog.common.util.MarkdownUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.model.vo.ShiroUser;
 import com.kangyonggan.blog.model.vo.User;
@@ -213,6 +215,27 @@ public class DashboardUserArticleController extends BaseController {
 
         model.addAttribute("article", response.getData());
         return getPathTableTr();
+    }
+
+    /**
+     * 文章详情
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "{id:[\\d]+}", method = RequestMethod.GET)
+    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        AttachmentResponse<Article> response = apiArticleService.getArticle(id);
+
+        Article article = response.getData();
+        article.setContent(MarkdownUtil.markdownToHtml(article.getContent()));
+        List<Attachment> attachments = response.getAttachments();
+
+        model.addAttribute("article", article);
+        model.addAttribute("attachments", attachments);
+        return "web/article/detail";
     }
 
     /**
