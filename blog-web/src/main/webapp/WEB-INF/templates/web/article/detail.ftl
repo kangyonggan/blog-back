@@ -12,7 +12,7 @@
             ${article.title}
             </h3>
 
-            <div class="widget-toolbar no-border invoice-info">
+            <div class="widget-toolbar invoice-info">
                 <span class="invoice-info-label">来源:</span>
                 <span class="red">${article.createFullname}</span>
 
