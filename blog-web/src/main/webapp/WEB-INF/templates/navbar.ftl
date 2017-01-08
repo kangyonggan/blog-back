@@ -75,9 +75,9 @@
                 <li>
                     <a href="#login">登录</a>
                 </li>
-                <li>
-                    <a href="#register">注册</a>
-                </li>
+                <#--<li>-->
+                    <#--<a href="#register">注册</a>-->
+                <#--</li>-->
             </ul>
         </@shiro.guest>
         </div>

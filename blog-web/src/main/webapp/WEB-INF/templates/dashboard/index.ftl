@@ -1,5 +1,6 @@
 <#assign ctx="${(rca.contextPath)!''}">
 
+<div class="space-10"></div>
 <div class="alert alert-block alert-success">
     <button type="button" class="close" data-dismiss="alert">
         <i class="ace-icon fa fa-times"></i>
