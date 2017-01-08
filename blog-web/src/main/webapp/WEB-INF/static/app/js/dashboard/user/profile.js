@@ -41,8 +41,10 @@ $(function () {
                         Message.success("修改成功");
                         var user = response.user;
                         // 更新navbar和当前页
-                        $("#largeAvatar").attr("src", ftpUrl + "/" + user.largeAvatar);
-                        $(".nav-user-photo").attr("src", ftpUrl + "/" + user.smallAvatar);
+                        if (user.largeAvatar != '') {
+                            $("#largeAvatar").attr("src", ftpUrl + "/" + user.largeAvatar);
+                            $(".nav-user-photo").attr("src", ftpUrl + "/" + user.smallAvatar);
+                        }
                         $("#navFullname").html(user.fullname);
                     } else {
                         Message.error(response.errMsg);
