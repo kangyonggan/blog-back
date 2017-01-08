@@ -74,10 +74,13 @@
 
 <#include "footer.ftl"/>
 
+<#include "modal.ftl"/>
+
     <a href="javascript:" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
 </div>
+
 <script>var ctx = '${ctx}';</script>
 <script src="${ctx}/static/ace/dist/js/bootstrap.min.js"></script>
 <script src="${ctx}/static/libs/jquery/jquery.bootstrap.min.js"></script>

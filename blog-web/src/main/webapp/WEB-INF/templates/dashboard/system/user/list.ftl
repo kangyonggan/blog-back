@@ -1,11 +1,12 @@
 <#assign ctx="${(rca.contextPath)!''}">
-<#assign title = RequestParameters.title!'' />
+<#assign fullname = RequestParameters.fullname!'' />
 
 <div class="page-header">
     <h1>
-        文章列表
+        用户列表
         <small class="pull-right">
-            <a href="#user/article/create" class="btn btn-sm btn-inverse">发布</a>
+            <a href="${ctx}/dashboard/system/user/create" class="btn btn-sm btn-inverse" data-toggle="modal" data-target="#myModal"
+               data-backdrop="static">添加</a>
         </small>
     </h1>
 </div>
@@ -14,7 +15,8 @@
 
 <form class="form-inline" method="get">
     <div class="form-group">
-        <input type="text" class="form-control" name="title" value="${title}" placeholder="标题" autocomplete="off"/>
+        <input type="text" class="form-control" name="fullname" value="${fullname}" placeholder="姓名"
+               autocomplete="off"/>
     </div>
 
     <button class="btn btn-sm btn-inverse" data-toggle="search-submit">
@@ -25,19 +27,19 @@
 
 <div class="space-10"></div>
 
-<table id="article-table" class="table table-striped table-bordered table-hover">
+<table id="user-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th>标题</th>
-        <th>标签</th>
+        <th>用户名</th>
+        <th>姓名</th>
         <th>逻辑删除</th>
-        <th>发布时间</th>
+        <th>创建时间</th>
         <th>操作</th>
     </tr>
     </thead>
     <tbody>
     <#if page.list?size gt 0>
-        <#list page.list as article>
+        <#list page.list as user>
             <#include "table-tr.ftl"/>
         </#list>
     <#else>
@@ -49,7 +51,6 @@
     </#if>
     </tbody>
 </table>
-<@c.pagination url="#user/article" param="title=${title}"/>
+<@c.pagination url="#system/user" param="fullname=${fullname}"/>
 
-
-<script src="${ctx}/static/app/js/dashboard/user/article/list.js"></script>
+<script src="${ctx}/static/app/js/dashboard/system/user/list.js"></script>
