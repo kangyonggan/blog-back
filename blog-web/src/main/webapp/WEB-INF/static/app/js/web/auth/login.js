@@ -1,6 +1,7 @@
 $(function () {
-
     var $form = $('#login-form');
+    var $btn = $("#login");
+
     $form.validate({
         rules: {
             username: {
@@ -17,17 +18,20 @@ $(function () {
             }
         },
         submitHandler: function () {
+            $btn.button('loading');
             $form.ajaxSubmit({
                 dataType: 'json',
                 success: function (response) {
                     if (response.errCode == "success") {
                         window.location.href = ctx + response.errMsg;
                     } else {
-                        Notify.error(response.errMsg);
+                        Message.error(response.errMsg);
+                        $btn.button('reset');
                     }
                 },
                 error: function () {
-                    Notify.error("服务器内部错误，请稍后再试。");
+                    Message.error("服务器内部错误，请稍后再试。");
+                    $btn.button('reset');
                 }
             });
             return false;

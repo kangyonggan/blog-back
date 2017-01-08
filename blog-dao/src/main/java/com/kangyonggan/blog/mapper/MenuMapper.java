@@ -10,21 +10,19 @@ import java.util.List;
 public interface MenuMapper extends MyMapper<Menu> {
 
     /**
-     * 查找用户某类型的菜单
+     * 查找用户菜单
      *
      * @param username
-     * @param type     admin|dashboard|null
      * @return
      */
-    List<Menu> selectMenusByUsernameAndType(@Param("username") String username, @Param("type") String type);
+    List<Menu> selectMenusByUsername(@Param("username") String username);
 
     /**
      * 查找角色菜单
      *
      * @param code
-     * @param type
      * @return
      */
-    List<Menu> selectMenus4Role(@Param("code") String code, @Param("type") String type);
+    List<Menu> selectMenus4Role(@Param("code") String code);
 
 }

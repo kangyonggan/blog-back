@@ -1,3 +1,3 @@
 $(function () {
-    $("#DASHBOARD").addClass('active open');
+    $('.breadcrumb li').eq(1).remove();
 });

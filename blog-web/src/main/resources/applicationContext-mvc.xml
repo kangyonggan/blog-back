@@ -51,7 +51,6 @@
 
     <!-- 定义无需Controller的url<->view直接映射 -->
     <mvc:view-controller path="/403" view-name="/403"/>
-    <mvc:view-controller path="/404" view-name="/404"/>
     <mvc:view-controller path="/500" view-name="/500"/>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -131,9 +130,6 @@
                 <entry key="override" value-ref="overrideDirective"/>
                 <entry key="super" value-ref="superDirective"/>
                 <entry key="shiro" value-ref="shiroTags"/>
-                <entry key="app_user" value-ref="userDirective"/>
-                <entry key="dashboard_menus" value-ref="dashboardMenusDirective"/>
-                <entry key="admin_menus" value-ref="adminMenusDirective"/>
                 <entry key="apps" value-ref="appsDirective"/>
             </map>
         </property>

@@ -35,7 +35,7 @@ public class DashboardUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "password", method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_PASSWORD")
+    @RequiresPermissions("USER_PASSWORD")
     public String password() {
         return getPathRoot() + "/password";
     }
@@ -47,10 +47,10 @@ public class DashboardUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "password", method = RequestMethod.POST)
-    @RequiresPermissions("DASHBOARD_USER_PASSWORD")
+    @RequiresPermissions("USER_PASSWORD")
     @ResponseBody
     public Map<String, Object> password(@RequestParam("password") String password) {
-        User user = userService.findUserByUsername(userService.getShiroUser().getUsername());
+        User user = userService.findUserById(userService.getShiroUser().getId());
         user.setPassword(password);
         userService.updateUserPassword(user);
 
@@ -64,7 +64,7 @@ public class DashboardUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "profile", method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_PROFILE")
+    @RequiresPermissions("USER_PROFILE")
     public String profile(Model model) {
         ShiroUser user = userService.getShiroUser();
 
@@ -82,11 +82,16 @@ public class DashboardUserController extends BaseController {
      * @throws FileUploadException
      */
     @RequestMapping(value = "profile", method = RequestMethod.POST)
-    @RequiresPermissions("DASHBOARD_USER_PROFILE")
-    public String profile(@ModelAttribute("user") @Valid User user, BindingResult result,
-                          @RequestParam(value = "avatar", required = false) MultipartFile avatar) throws FileUploadException {
+    @RequiresPermissions("USER_PROFILE")
+    @ResponseBody
+    public Map<String, Object> profile(@ModelAttribute("user") @Valid User user, BindingResult result,
+                                       @RequestParam(value = "avatar", required = false) MultipartFile avatar) throws FileUploadException {
+        ShiroUser shiroUser = userService.getShiroUser();
+        user.setId(shiroUser.getId());
+        Map<String, Object> resultMap = getResultMap();
+
         if (!result.hasErrors()) {
-            if (!avatar.isEmpty()) {
+            if (avatar != null && !avatar.isEmpty()) {
                 String fileName = FileUpload.upload(avatar);
 
                 String large = Images.large(fileName);
@@ -98,9 +103,12 @@ public class DashboardUserController extends BaseController {
             }
 
             userService.updateUser(user);
+            resultMap.put("user", userService.findUserById(shiroUser.getId()));
+        } else {
+            setResultMapFailure(resultMap);
         }
 
-        return "redirect:/dashboard/user/profile";
+        return resultMap;
     }
 
 }

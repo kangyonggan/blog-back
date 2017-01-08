@@ -1,13 +1,10 @@
-<#assign title="${article.title}">
+<#assign ctx="${(rca.contextPath)!''}">
 
-<@override name="style">
 <link rel="stylesheet" href="${ctx}/static/libs/markdown/styles/shCoreDefault.css"/>
-</@override>
 
-<@override name="content">
 <div class="space-20"></div>
 
-<div class="col-sm-10 col-sm-offset-1">
+<div class="col-xs-10 col-xs-offset-1">
     <div class="widget-box transparent">
         <div class="widget-header widget-header-large">
             <h3 class="widget-title grey lighter">
@@ -51,16 +48,16 @@
 
             <div class="space-10"></div>
 
-            <#list attachments as attachment>
-                <a href="${ftpUrl}/${attachment.path}" target="_blank">${attachment.name}</a>
-                <div class="space-10"></div>
-            </#list>
+            <@apps>
+                <#list attachments as attachment>
+                    <a href="${ftpUrl}/${attachment.path}" target="_blank">${attachment.name}</a>
+                    <div class="space-10"></div>
+                </#list>
+            </@apps>
         </#if>
     </div>
 </div>
-</@override>
 
-<@override name="script">
 <script src="${ctx}/static/libs/markdown/scripts/shCore.js"></script>
 <script src="${ctx}/static/libs/markdown/scripts/shBrushXml.js"></script>
 <script src="${ctx}/static/libs/markdown/scripts/shBrushSql.js"></script>
@@ -69,7 +66,7 @@
 <script src="${ctx}/static/libs/markdown/scripts/shBrushJava.js"></script>
 <script src="${ctx}/static/libs/markdown/scripts/shBrushCss.js"></script>
 <script src="${ctx}/static/libs/markdown/scripts/shBrushBash.js"></script>
+<script>
+    var title = '${article.title}';
+</script>
 <script src="${ctx}/static/app/js/web/article/detail.js"></script>
-</@override>
-
-<@extends name="../layout.ftl"/>

@@ -1,6 +1,5 @@
 $(function () {
-    $("#DASHBOARD_USER").addClass('active open');
-    $("#DASHBOARD_USER_ARTICLE").addClass('active');
+    updateState("user/article");
 
     /**
      * 初始化select2
@@ -48,7 +47,7 @@ $(function () {
         var tags = $("#tags").val();
 
         if (!tags) {
-            Notify.error("请选择标签");
+            Message.error("请选择标签");
             return false;
         }
 
@@ -56,6 +55,7 @@ $(function () {
     });
 
     var $form = $('#article-form');
+    var $btn = $("#submit");
 
     $form.validate({
         rules: {
@@ -63,6 +63,25 @@ $(function () {
                 required: true,
                 maxlength: 64
             }
+        },
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            $btn.button('loading');
+            $(form).ajaxSubmit({
+                dataType: 'json',
+                success: function (response) {
+                    if (response.errCode == 'success') {
+                        window.location.href = window.location.origin + window.location.pathname + "#user/article";
+                    } else {
+                        Message.error(response.errMsg);
+                    }
+                    $btn.button('reset');
+                },
+                error: function () {
+                    Message.error("服务器内部错误，请稍后再试。");
+                    $btn.button('reset');
+                }
+            });
         },
         errorPlacement: function (error, element) {
             error.appendTo(element.parent());

@@ -10,7 +10,6 @@ public interface AppConstants {
      * 是否删除
      */
     byte IS_DELETED_NO = 0;
-    byte IS_DELETED_YES = 1;
 
     /**
      * 文件根目录的name
@@ -38,19 +37,6 @@ public interface AppConstants {
     String HASH_ALGORITHM = "SHA-1";
     int HASH_INTERATIONS = 2;
     int SALT_SIZE = 8;
-
-    /**
-     * 菜单类型
-     */
-    String MENU_TYPE_DASHBOARD = "dashboard";
-    String MENU_TYPE_ADMIN = "admin";
-    String MENU_TYPE_ALL = null;
-
-    /**
-     * 菜单代码
-     */
-    String MENU_CODE_DASHBOARD = "DASHBOARD";
-    String MENU_CODE_ADMIN = "ADMIN";
 
     /**
      * 把验证码存放在session中的key

@@ -72,18 +72,14 @@
     <!-- Shiro Filter -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/login"/>
-        <property name="successUrl" value="/dashboard"/>
-        <property name="unauthorizedUrl" value="/403"/>
+        <property name="loginUrl" value="/#login"/>
+        <!--<property name="successUrl" value="/dashboard"/>-->
+        <property name="unauthorizedUrl" value="/#403"/>
         <property name="filterChainDefinitions">
             <value>
-                /admin/** = authc
                 /dashboard/** = authc
-                /api/** = authcBasic
                 /register* = anon
                 /validate* = anon
-                /password-reset* = anon
-                /notification* = user
             </value>
         </property>
     </bean>

@@ -5,7 +5,6 @@ import com.kangyonggan.api.common.annotation.CacheGetOrSave;
 import com.kangyonggan.api.common.annotation.LogTime;
 import com.kangyonggan.blog.biz.service.MenuService;
 import com.kangyonggan.blog.mapper.MenuMapper;
-import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.model.vo.Menu;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,29 +25,12 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @LogTime
-    @CacheGetOrSave("menu:username:{0}:all")
+    @CacheGetOrSave("menu:username:{0}")
     public List<Menu> findMenusByUsername(String username) {
-        return menuMapper.selectMenusByUsernameAndType(username, AppConstants.MENU_TYPE_ALL);
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:username:{0}:dashboard")
-    public List<Menu> findDashboardMenus(String username) {
-        List<Menu> menus = menuMapper.selectMenusByUsernameAndType(username, AppConstants.MENU_TYPE_DASHBOARD);
+        List<Menu> menus = menuMapper.selectMenusByUsername(username);
         List<Menu> wrapList = new ArrayList();
 
-        return recursionList(menus, wrapList, AppConstants.MENU_CODE_DASHBOARD, 0L);
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:username:{0}:admin")
-    public List<Menu> findAdminMenus(String username) {
-        List<Menu> menus = menuMapper.selectMenusByUsernameAndType(username, AppConstants.MENU_TYPE_ADMIN);
-        List<Menu> wrapList = new ArrayList();
-
-        return recursionList(menus, wrapList, AppConstants.MENU_CODE_ADMIN, 0L);
+        return recursionList(menus, wrapList, "", 0L);
     }
 
     @Override
@@ -58,44 +40,6 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         menu.setCode(code);
 
         return menuMapper.selectCount(menu) == 1;
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:roleCode:{0}:admin")
-    public List<Menu> findAdminMenus4Role(String code) {
-        return menuMapper.selectMenus4Role(code, AppConstants.MENU_TYPE_ADMIN);
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:all:admin")
-    public List<Menu> findAllAdminMenus() {
-        Menu menu = new Menu();
-        menu.setType(AppConstants.MENU_TYPE_ADMIN);
-        List<Menu> menus = super.select(menu);
-
-        List<Menu> wrapList = new ArrayList();
-        return recursionTreeList(menus, wrapList, "", 0L);
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:roleCode:{0}:dashboard")
-    public List<Menu> findDashboardMenus4Role(String code) {
-        return menuMapper.selectMenus4Role(code, AppConstants.MENU_TYPE_DASHBOARD);
-    }
-
-    @Override
-    @LogTime
-    @CacheGetOrSave("menu:all:dashboard")
-    public List<Menu> findAllDashboardMenus() {
-        Menu menu = new Menu();
-        menu.setType(AppConstants.MENU_TYPE_DASHBOARD);
-        List<Menu> menus = super.select(menu);
-
-        List<Menu> wrapList = new ArrayList();
-        return recursionTreeList(menus, wrapList, "", 0L);
     }
 
     @Override

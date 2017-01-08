@@ -1,11 +1,8 @@
-<#assign title="个人资料">
-<#assign ptitle="我的">
+<#assign ctx="${(rca.contextPath)!''}">
 
-<@override name="content">
-
+<div class="space-10"></div>
 <form id="form" action="${ctx}/dashboard/user/profile" method="post" enctype="multipart/form-data"
       class="form-horizontal">
-    <input type="hidden" name="id" value="${user.id}"/>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right">用户名</label>
         <div class="col-xs-12 col-sm-5">
@@ -16,7 +13,7 @@
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right">姓名<span class="red">*</span></label>
         <div class="col-xs-12 col-sm-5">
-            <@spring.formInput "user.fullname" 'class="form-control" placeholder="2至4个汉字"'/>
+        <@spring.formInput "user.fullname" 'class="form-control" placeholder="2至4个汉字"'/>
         </div>
     </div>
 
@@ -25,8 +22,10 @@
 
         <div class="col-xs-12 col-sm-5">
             <span class="profile-picture">
-                <img class="editable img-responsive"
+            <@apps>
+                <img id="largeAvatar" class="editable img-responsive"
                      src="<#if user.largeAvatar?has_content>${ftpUrl}/${user.largeAvatar}<#else>${ctx}/static/ace/dist/avatars/profile-pic.jpg</#if>"></img>
+            </@apps>
             </span>
         </div>
     </div>
@@ -44,16 +43,16 @@
     </div>
 
     <div class="clearfix form-actions">
-        <div class="center">
-            <input type="submit" class="btn btn-info width-10" data-toggle="form-submit" data-loading-text="正在提交..."
-                   value="<@spring.message "app.button.save"/>"/>
+        <div class="col-xs-offset-3">
+            <button id="submit" class="btn btn-inverse" data-loading-text="正在提交...">
+                <i class="ace-icon fa fa-check"></i>
+            <@spring.message "app.button.save"/>
+            </button>
         </div>
     </div>
 </form>
-</@override>
 
-<@override name="script">
+<script>
+    var ftpUrl = '${ftpUrl}';
+</script>
 <script src="${ctx}/static/app/js/dashboard/user/profile.js"></script>
-</@override>
-
-<@extends name="../layout.ftl"/>

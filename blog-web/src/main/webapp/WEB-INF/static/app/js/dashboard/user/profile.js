@@ -1,9 +1,7 @@
 $(function () {
-    $("#DASHBOARD_USER").addClass('active open');
-    $("#DASHBOARD_USER_PROFILE").addClass('active');
-
     var $form = $('#form');
     var file_input = $form.find('input[type=file]');
+    var $btn = $("#submit");
 
     file_input.ace_file_input({
         style: 'well',
@@ -32,6 +30,30 @@ $(function () {
         },
         errorPlacement: function (error, element) {
             error.appendTo(element.parent());
+        },
+        submitHandler: function (form, event) {
+            event.preventDefault();
+            $btn.button('loading');
+            $(form).ajaxSubmit({
+                dataType: 'json',
+                success: function (response) {
+                    if (response.errCode == 'success') {
+                        Message.success("修改成功");
+                        var user = response.user;
+                        // 更新navbar和当前页
+                        $("#largeAvatar").attr("src", ftpUrl + "/" + user.largeAvatar);
+                        $(".nav-user-photo").attr("src", ftpUrl + "/" + user.smallAvatar);
+                        $("#navFullname").html(user.fullname);
+                    } else {
+                        Message.error(response.errMsg);
+                    }
+                    $btn.button('reset');
+                },
+                error: function () {
+                    Message.error("服务器内部错误，请稍后再试。");
+                    $btn.button('reset');
+                }
+            });
         },
         errorElement: "div",
         errorClass: "error"

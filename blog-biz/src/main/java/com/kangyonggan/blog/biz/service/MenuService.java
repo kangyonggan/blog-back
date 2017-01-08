@@ -20,58 +20,12 @@ public interface MenuService {
     List<Menu> findMenusByUsername(String username);
 
     /**
-     * 根据用户名查找工作台菜单
-     *
-     * @param username
-     * @return
-     */
-    List<Menu> findDashboardMenus(String username);
-
-    /**
-     * 根据用户名查找控制台菜单
-     *
-     * @param username
-     * @return
-     */
-    List<Menu> findAdminMenus(String username);
-
-    /**
      * 校验菜单代码是否存在
      *
      * @param code
      * @return
      */
     boolean existsMenuCode(String code);
-
-    /**
-     * 查找角色的控制台菜单
-     *
-     * @param code
-     * @return
-     */
-    List<Menu> findAdminMenus4Role(String code);
-
-    /**
-     * 查找所有控制台菜单
-     *
-     * @return
-     */
-    List<Menu> findAllAdminMenus();
-
-    /**
-     * 查找角色的工作台菜单
-     *
-     * @param code
-     * @return
-     */
-    List<Menu> findDashboardMenus4Role(String code);
-
-    /**
-     * 查找所有工作台菜单
-     *
-     * @return
-     */
-    List<Menu> findAllDashboardMenus();
 
     /**
      * 根据菜单代码查找菜单

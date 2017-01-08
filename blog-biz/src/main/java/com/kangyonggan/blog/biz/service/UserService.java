@@ -13,7 +13,7 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * 根据用户名查找用户
+     * 根据用户名查找用户(会查找到密码)
      *
      * @param username
      * @return
@@ -44,7 +44,7 @@ public interface UserService {
     void saveUserWithDefaultRole(User user);
 
     /**
-     * 根据主键查找用户
+     * 根据主键查找用户(不会查找到密码)
      *
      * @param id
      * @return

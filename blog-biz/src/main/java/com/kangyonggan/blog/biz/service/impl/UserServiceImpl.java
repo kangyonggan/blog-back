@@ -80,7 +80,13 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     @LogTime
     @CacheGetOrSave("user:id:{0}")
     public User findUserById(Long id) {
-        return super.selectByPrimaryKey(id);
+        User user =  super.selectByPrimaryKey(id);
+
+        if (user != null) {
+            user.setPassword(null);
+            user.setSalt(null);
+        }
+        return user;
     }
 
     @Override

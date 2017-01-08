@@ -36,6 +36,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author kangyonggan
@@ -63,7 +64,7 @@ public class DashboardUserArticleController extends BaseController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    @RequiresPermissions("USER_ARTICLE")
     public String list(@RequestParam(value = "p", required = false, defaultValue = "1") int pageNum,
                        @RequestParam(value = "title", required = false, defaultValue = "") String title,
                        Model model) {
@@ -90,7 +91,7 @@ public class DashboardUserArticleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    @RequiresPermissions("USER_ARTICLE")
     public String create(Model model) {
         List<Dictionary> dictionaries = apiDictionaryService.findDictionariesByType(DictionaryType.ARTICLE_TAG.getType()).getList();
 
@@ -109,9 +110,12 @@ public class DashboardUserArticleController extends BaseController {
      * @throws Exception
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
-    public String save(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
+    @RequiresPermissions("USER_ARTICLE")
+    @ResponseBody
+    public Map<String, Object> save(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
                        @ModelAttribute("article") @Valid Article article, BindingResult result) throws Exception {
+        Map<String, Object> resultMap = getResultMap();
+
         ShiroUser shiroUser = userService.getShiroUser();
         User user = userService.findUserById(shiroUser.getId());
 
@@ -130,10 +134,10 @@ public class DashboardUserArticleController extends BaseController {
 
             apiArticleService.saveArticleWithAttachments(request);
         } else {
-            return "redirect:/" + getPathRoot() + "/create";
+            setResultMapFailure(resultMap);
         }
 
-        return "redirect:/" + getPathRoot();
+        return resultMap;
     }
 
     /**
@@ -144,7 +148,7 @@ public class DashboardUserArticleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/edit", method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    @RequiresPermissions("USER_ARTICLE")
     public String edit(@PathVariable("id") Long id, Model model) {
         CommonResponse<Dictionary> response = apiDictionaryService.findDictionariesByType(DictionaryType.ARTICLE_TAG.getType());
         List<Dictionary> dictionaries = response.getList();
@@ -161,19 +165,18 @@ public class DashboardUserArticleController extends BaseController {
      * 更新文章
      *
      * @param attachments
-     * @param pageNum
-     * @param t
      * @param article
      * @param result
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
-    public String update(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
-                         @RequestParam(value = "p", required = false, defaultValue = "1") int pageNum,
-                         @RequestParam(value = "t", required = false, defaultValue = "") String t,
-                         @ModelAttribute("article") @Valid Article article, BindingResult result) throws Exception {
+    @RequiresPermissions("USER_ARTICLE")
+    @ResponseBody
+    public Map<String, Object> update(@RequestParam(value = "attachment[]", required = false) List<MultipartFile> attachments,
+                      @ModelAttribute("article") @Valid Article article, BindingResult result) throws Exception {
+        Map<String, Object> resultMap = getResultMap();
+
         if (!result.hasErrors()) {
             UpdateArticleWithAttachmentsRequest request = new UpdateArticleWithAttachmentsRequest();
             request.setTags(article.getTags());
@@ -190,10 +193,10 @@ public class DashboardUserArticleController extends BaseController {
 
             apiArticleService.updateArticleWithAttachments(request);
         } else {
-            return "redirect:/" + getPathRoot() + "/" + article.getId() + "/edit";
+            setResultMapFailure(resultMap);
         }
 
-        return "redirect:/" + getPathRoot() + "?p=" + pageNum + "&title=" + t;
+        return resultMap;
     }
 
     /**
@@ -205,7 +208,7 @@ public class DashboardUserArticleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}/{isDeleted:\\bundelete\\b|\\bdelete\\b}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    @RequiresPermissions("USER_ARTICLE")
     public String delete(@PathVariable("id") Long id, @PathVariable("isDeleted") String isDeleted, Model model) {
         UpdateArticleRequest request = new UpdateArticleRequest();
         request.setId(id);
@@ -225,7 +228,7 @@ public class DashboardUserArticleController extends BaseController {
      * @return
      */
     @RequestMapping(value = "{id:[\\d]+}", method = RequestMethod.GET)
-    @RequiresPermissions("DASHBOARD_USER_ARTICLE")
+    @RequiresPermissions("USER_ARTICLE")
     public String detail(@PathVariable("id") Long id, Model model) {
         AttachmentResponse<Article> response = apiArticleService.getArticle(id);
 

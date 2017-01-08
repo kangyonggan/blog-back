@@ -26,11 +26,22 @@ import java.util.List;
 @RequestMapping("/")
 public class IndexController extends BaseController {
 
+
     @Resource
     private ApiArticleService apiArticleService;
 
     @Resource
     private ApiDictionaryService apiDictionaryService;
+
+    /**
+     * 网站模板
+     *
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public String web() {
+        return "web/web";
+    }
 
     /**
      * 网站首页
@@ -40,7 +51,7 @@ public class IndexController extends BaseController {
      * @param model
      * @return
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(@RequestParam(value = "p", required = false, defaultValue = "1") int pageNum,
                         @RequestParam(value = "tag", required = false, defaultValue = "") String tag,
                         Model model) {
@@ -56,6 +67,16 @@ public class IndexController extends BaseController {
         model.addAttribute("page", page);
         model.addAttribute("tags", tags);
         return getPathIndex();
+    }
+
+    @RequestMapping(value = "error/404", method = RequestMethod.GET)
+    public String error404() {
+        return "redirect:/#404";
+    }
+
+    @RequestMapping(value = "404", method = RequestMethod.GET)
+    public String page404() {
+        return "404";
     }
 
 }

@@ -3,7 +3,7 @@
     <div class="footer-inner">
         <div class="footer-content">
 			<span class="bigger-120">
-				<span class="blue bolder"><@spring.message "app.name"/></span>
+				<span class="grey bolder"><@spring.message "app.name"/></span>
                 © 2016
                 <img src="${ctx}/static/app/images/ba.png">
             <em class="hidden-xs"><@spring.message "app.ba.no"/></em>

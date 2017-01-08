@@ -1,4 +1,4 @@
-<div id="sidebar" class="sidebar responsive" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true">
+<div id="sidebar" class="sidebar responsive">
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
             <button class="btn btn-success">
@@ -16,7 +16,6 @@
             <button class="btn btn-danger">
                 <i class="ace-icon fa fa-cogs"></i>
             </button>
-
         </div>
 
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
@@ -30,12 +29,10 @@
         </div>
     </div>
 
-    <ul class="nav nav-list" style="top: 0px;">
-        <#if isAdmin??>
-            <@c.app_admin_menus />
-        <#else>
-            <@c.app_dashboard_menus />
-        </#if>
+    <ul class="nav nav-list">
+    <#list menus as menu>
+        <#include "menu.ftl"/>
+    </#list>
     </ul>
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

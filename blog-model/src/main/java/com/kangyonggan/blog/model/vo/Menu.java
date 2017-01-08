@@ -27,11 +27,6 @@ public class Menu implements Serializable {
     private String name;
 
     /**
-     * 菜单类型:{dashboard:工作台, admin:控制台}
-     */
-    private String type;
-
-    /**
      * 父菜单代码
      */
     private String pcode;

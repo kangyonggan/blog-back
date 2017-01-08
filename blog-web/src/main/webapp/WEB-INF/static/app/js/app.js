@@ -8,12 +8,22 @@ $(function () {
         }
     };
 
-    // 防重复提交
-    $(document).on('click', 'button[data-loading-text],input[data-loading-text]', function () {
-        var btn = $(this).button('loading');
-        setTimeout(function () {
-            btn.button('reset');
-        }, 2000);
+    // 异步加载界面
+    var $ajaxContent = $(".page-content-area");
+    $ajaxContent.ace_ajax({
+        'default_url': '#index',
+        'content_url': function (hash) {
+            return window.location.origin + window.location.pathname + "/" + hash;
+        },
+        'update_active': updateMenuActive,
+        'update_breadcrumbs': updateBreadcrumbs,
+        'update_title': updateTitle,
+        'loading_text': '<span class="loading">正在加载, 请稍等...</span>'
+    });
+
+    // 监听异步加载失败事件
+    $ajaxContent.on("ajaxloaderror", function (e, data) {
+        window.location.href = ctx + '/#500';
     });
 
     // 提示框
@@ -22,15 +32,30 @@ $(function () {
         ok: {text: "确定", classed: 'btn-success'}
     };
 
-    // 关闭时清除模态框的数据
-    $(document).on('hidden.bs.modal', '.modal', function () {
-        $(this).removeData('bs.modal');
-    });
-
-    // form modal提交
-    $('.modal').on('click', '[data-toggle=form-submit]', function(e) {
+    // 搜索
+    $(document).on("click", "[data-toggle='search-submit']", function (e) {
         e.preventDefault();
-        $($(this).data('target')).submit();
+        var $this = $(this);
+        var $form = $this.parent("form");
+
+        var params = '?';
+        var arr = $form.serializeArray();
+        for (var i = 0; i < arr.length; i++) {
+            if (i != 0) {
+                params += '&';
+            }
+            params += arr[i].name + "=";
+            params += arr[i].value;
+        }
+
+        var hash = window.location.hash;
+        var index = hash.indexOf("?");
+        if (index > -1) {
+            hash = hash.substring(0, index);
+        }
+
+        window.location.href = window.location.origin + window.location.pathname + hash + params;
+        return false;
     });
 });
 
@@ -46,7 +71,7 @@ var showMessage = function (type, message) {
         class_name: type
     });
 };
-var Notify = {
+var Message = {
     success: function (message) {
         showMessage('gritter-success', message);
     },
@@ -63,3 +88,88 @@ var Notify = {
         showMessage('gritter-info', message);
     }
 };
+
+/**
+ * 更新菜单激活状态
+ *
+ * @param hash
+ */
+function updateMenuActive(hash) {
+    //  当前菜单
+    var $menu = $($('a[data-url="' + hash + '"]')[0]).parent("li");
+
+    // 所有菜单
+    var $all_menus = $menu.parents("ul.nav-list").find("li");
+
+    // 清除所有菜单状态
+    $all_menus.removeClass("open");
+    $all_menus.removeClass("active");
+
+    // 父菜单
+    var $parent = $menu.parents("li");
+    if ($parent.length > 0) {
+        $parent.addClass("open");
+    }
+    $menu.addClass("active");
+}
+
+/**
+ * 更新面包屑
+ *
+ * @param hash
+ */
+function updateBreadcrumbs(hash) {
+    var $menu = $('a[data-url="' + hash + '"]');
+
+    // 下面这坨代码摘自ace.ajax-content.js
+    var $breadcrumbs = $('.breadcrumb');
+    if ($breadcrumbs.length > 0 && $breadcrumbs.is(':visible')) {
+        $breadcrumbs.find('> li:not(:first-child)').remove();
+
+        var i = 0;
+        $menu.parents('.nav li').each(function () {
+            var $link = $(this).find('> a');
+
+            var $link_clone = $link.clone();
+            $link_clone.find('i,.fa,.glyphicon,.ace-icon,.menu-icon,.badge,.label').remove();
+            var text = $link_clone.text();
+            $link_clone.remove();
+
+            var href = $link.attr('href');
+
+            if (i == 0) {
+                var li = $('<li class="active"></li>').appendTo($breadcrumbs);
+                li.text(text);
+            } else {
+                var li = $('<li><a /></li>').insertAfter($breadcrumbs.find('> li:first-child'));
+                li.find('a').attr('href', href).text(text);
+            }
+            i++;
+        })
+    }
+}
+
+/**
+ * 更新标题
+ *
+ * @param hash
+ */
+function updateTitle(hash) {
+    var $menu = $($('a[data-url="' + hash + '"]')[0]);
+    var title = $.trim($menu.text());
+
+    if (title != '') {
+        document.title = title;
+    }
+}
+
+/**
+ * 更新状态
+ *
+ * @param hash
+ */
+function updateState(hash) {
+    updateBreadcrumbs(hash);
+    updateMenuActive(hash);
+    updateTitle(hash);
+}

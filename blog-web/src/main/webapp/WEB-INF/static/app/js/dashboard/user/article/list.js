@@ -1,6 +1,5 @@
 $(function () {
-    $("#DASHBOARD_USER").addClass('active open');
-    $("#DASHBOARD_USER_ARTICLE").addClass('active');
+    updateState("user/article");
 
     var $table = $('#article-table');
 
@@ -13,9 +12,9 @@ $(function () {
             $.get(url).success(function (html) {
                 var $tr = $(html);
                 $('#' + $tr.attr('id')).replaceWith($tr);
-                Notify.success("操作成功");
+                Message.success("操作成功");
             }).error(function () {
-                Notify.error("网络错误，请稍后重试");
+                Message.error("网络错误，请稍后重试");
             })
         });
     });

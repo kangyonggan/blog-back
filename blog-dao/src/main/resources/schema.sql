@@ -88,8 +88,6 @@ CREATE TABLE menu
   COMMENT '菜单代码',
   name         VARCHAR(32)                           NOT NULL
   COMMENT '菜单名称',
-  type         VARCHAR(16)                           NOT NULL
-  COMMENT '菜单类型:{dashboard:工作台, admin:控制台}',
   pcode        VARCHAR(32)                           NOT NULL                DEFAULT ''
   COMMENT '父菜单代码',
   url          VARCHAR(128)                          NOT NULL                DEFAULT ''
@@ -170,24 +168,23 @@ VALUES
 --  data for menu
 -- ----------------------------
 INSERT INTO menu
-(code, name, type, pcode, url, sort, icon)
+(code, name, pcode, url, sort, icon)
 VALUES
-  ('ADMIN', '控制台', 'admin', '', 'admin', 0, 'menu-icon fa fa-desktop'),
-  ('DASHBOARD', '工作台', 'dashboard', '', 'dashboard', 0, 'menu-icon fa fa-dashboard'),
+  ('DASHBOARD', '工作台', '', 'index', 0, 'menu-icon fa fa-dashboard'),
 
-  ('ADMIN_SYS', '系统', 'admin', 'ADMIN', 'admin/sys', 0, 'menu-icon fa fa-cogs'),
-  ('ADMIN_SYS_USER', '用户管理', 'admin', 'ADMIN_SYS', 'admin/sys/user', 0, ''),
-  ('ADMIN_SYS_ROLE', '角色管理', 'admin', 'ADMIN_SYS', 'admin/sys/role', 1, ''),
-  ('ADMIN_SYS_MENU', '菜单管理', 'admin', 'ADMIN_SYS', 'admin/sys/menu', 2, ''),
+  ('SYSTEM', '系统', '', 'system', 1, 'menu-icon fa fa-cogs'),
+  ('SYSTEM_USER', '用户管理', 'SYSTEM', 'system/user', 0, ''),
+  ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 'system/role', 1, ''),
+  ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 'system/menu', 2, ''),
 
-  ('ADMIN_DATA', '数据', 'admin', 'ADMIN', 'admin/data', 1, 'menu-icon fa fa-gavel'),
-  ('ADMIN_DATA_CACHE', '缓存管理', 'admin', 'ADMIN_DATA', 'admin/data/cache', 0, ''),
-  ('ADMIN_DATA_DICTIONARY', '数据字典', 'admin', 'ADMIN_DATA', 'admin/data/dictionary', 1, ''),
+  ('DATA', '数据', '', 'data', 2, 'menu-icon fa fa-gavel'),
+  ('DATA_CACHE', '缓存管理', 'DATA', 'data/cache', 0, ''),
+  ('DATA_DICTIONARY', '数据字典', 'DATA', 'data/dictionary', 1, ''),
 
-  ('DASHBOARD_USER', '我的', 'dashboard', 'DASHBOARD', 'dashboard/user', 0, 'menu-icon fa fa-user'),
-  ('DASHBOARD_USER_PROFILE', '个人信息', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/profile', 0, ''),
-  ('DASHBOARD_USER_PASSWORD', '修改密码', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/password', 1, ''),
-  ('DASHBOARD_USER_ARTICLE', '我的文章', 'dashboard', 'DASHBOARD_USER', 'dashboard/user/article', 2, '');
+  ('USER', '我的', '', 'user', 3, 'menu-icon fa fa-user'),
+  ('USER_PROFILE', '个人信息', 'USER', 'user/profile', 0, ''),
+  ('USER_PASSWORD', '修改密码', 'USER', 'user/password', 1, ''),
+  ('USER_ARTICLE', '我的文章', 'USER', 'user/article', 2, '');
 
 -- ----------------------------
 --  data for user_role
@@ -208,4 +205,4 @@ INSERT INTO role_menu SELECT
                         'ROLE_USER',
                         code
                       FROM menu
-                      WHERE code LIKE 'DASHBOARD%';
+                      WHERE code LIKE 'USER%' OR code = 'DASHBOARD';

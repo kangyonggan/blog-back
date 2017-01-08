@@ -1,6 +1,5 @@
-<#assign title="错误" />
+<#assign ctx="${(rca.contextPath)!''}">
 
-<@override name="app-content">
 <div class="main-content">
     <div class="main-content-inner">
         <div class="page-content">
@@ -17,17 +16,17 @@
 
                             <hr/>
 
-                            <@block name = "error" />
+                        <@block name = "error" />
 
                             <hr/>
                             <div class="space"></div>
 
                             <div class="center">
-                                <a href="javascript:history.back()" class="btn btn-grey">
-                                    <i class="ace-icon fa fa-arrow-left"></i>
-                                    返回
+                                <a href="${ctx}/" class="btn btn-success">
+                                    <i class="ace-icon fa fa-home"></i>
+                                    首页
                                 </a>
-                                <a href="/dashboard" class="btn btn-primary">
+                                <a href="${ctx}/dashboard" class="btn btn-primary">
                                     <i class="ace-icon fa fa-tachometer"></i>
                                     工作台
                                 </a>
@@ -39,6 +38,3 @@
         </div>
     </div>
 </div>
-</@override>
-
-<@extends name="layout.ftl"/>

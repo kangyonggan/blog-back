@@ -1,3 +1,15 @@
+.loading {
+    margin-left: 15px;
+}
+
+#login-box {
+    border: 1px solid #CCC;
+}
+
+#login-box .toolbar {
+    background: #444;
+}
+
 .error {
     color: red;
 }

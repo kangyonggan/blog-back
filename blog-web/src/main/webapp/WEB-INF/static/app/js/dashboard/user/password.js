@@ -1,8 +1,6 @@
 $(function () {
-    $("#DASHBOARD_USER").addClass('active open');
-    $("#DASHBOARD_USER_PASSWORD").addClass('active');
-
     var $form = $('#form');
+    var $btn = $("#submit");
 
     $form.validate({
         rules: {
@@ -13,17 +11,21 @@ $(function () {
         },
         submitHandler: function (form, event) {
             event.preventDefault();
+            $btn.button('loading');
             $(form).ajaxSubmit({
                 dataType: 'json',
                 success: function (response) {
                     if (response.errCode == 'success') {
-                        Notify.success("修改成功");
+                        Message.success("修改成功");
+                        form.reset();
                     } else {
-                        Notify.error(response.errMsg);
+                        Message.error(response.errMsg);
                     }
+                    $btn.button('reset');
                 },
                 error: function () {
-                    Notify.error("服务器内部错误，请稍后再试。");
+                    Message.error("服务器内部错误，请稍后再试。");
+                    $btn.button('reset');
                 }
             });
         },

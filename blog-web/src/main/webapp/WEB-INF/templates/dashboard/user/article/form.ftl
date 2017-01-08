@@ -1,18 +1,12 @@
-<#assign title="${article.id???string('编辑文章', '添加文章')}">
-<#assign ptitle="我的">
+<#assign ctx="${(rca.contextPath)!''}">
 
-<#assign title2 = RequestParameters.title!'' />
-<#assign p = RequestParameters.p!'1' />
-
-<@override name="style">
 <link rel="stylesheet" href="${ctx}/static/ace/dist/css/dropzone.min.css"/>
 <link rel="stylesheet" href="${ctx}/static/libs/bootstrap/css/bootstrap-markdown.min.css"/>
 <link rel="stylesheet" href="${ctx}/static/ace/dist/css/select2.min.css"/>
-</@override>
 
-<@override name="content">
+<div class="space-10"></div>
 <form id="article-form" method="post" enctype="multipart/form-data" class="form-horizontal"
-      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}?p=${p}&t=${title2}">
+      action="${ctx}/dashboard/user/article/${article.id???string('update', 'save')}">
 
     <#if article.id??>
         <input type="hidden" name="id" value="${article.id}"/>
@@ -71,20 +65,16 @@
     </div>
 
     <div class="clearfix form-actions">
-        <div class="center">
-            <input id="submit" type="submit" class="btn btn-info width-10" data-toggle="form-submit"
-                   data-loading-text="正在提交..."
-                   value="<@spring.message "app.button.save"/>"/>
+        <div class="col-xs-offset-3">
+            <button id="submit" class="btn btn-inverse" data-loading-text="正在提交...">
+                <i class="ace-icon fa fa-check"></i>
+            <@spring.message "app.button.save"/>
+            </button>
         </div>
     </div>
 </form>
-</@override>
 
-<@override name="script">
 <script type="text/javascript" src="${ctx}/static/ace/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/libs/bootstrap/js/marked.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/libs/bootstrap/js/bootstrap-markdown.min.js"></script>
 <script src="${ctx}/static/app/js/dashboard/user/article/form.js"></script>
-</@override>
-
-<@extends name="../../layout.ftl"/>

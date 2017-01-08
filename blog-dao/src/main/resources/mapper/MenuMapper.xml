@@ -8,7 +8,6 @@
         <id column="id" property="id" jdbcType="BIGINT"/>
         <result column="code" property="code" jdbcType="VARCHAR"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
-        <result column="type" property="type" jdbcType="VARCHAR"/>
         <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
         <result column="sort" property="sort" jdbcType="INTEGER"/>
@@ -18,7 +17,7 @@
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="selectMenusByUsernameAndType" resultMap="BaseResultMap">
+    <select id="selectMenusByUsername" resultMap="BaseResultMap">
         SELECT DISTINCT m.*
         FROM menu m, role_menu rm, user_role ur
         <where>
@@ -26,9 +25,6 @@
             AND rm.role_code = ur.role_code
             AND ur.username = #{username}
             AND m.is_deleted = 0
-            <if test="type != null and type != ''">
-                AND m.type = #{type}
-            </if>
             ORDER BY m.sort ASC
         </where>
     </select>
@@ -39,9 +35,6 @@
         <where>
             m.code = rm.menu_code
             AND rm.role_code = #{code}
-            <if test="type != null and type != ''">
-                AND m.type = #{type}
-            </if>
             ORDER BY m.sort
         </where>
     </select>

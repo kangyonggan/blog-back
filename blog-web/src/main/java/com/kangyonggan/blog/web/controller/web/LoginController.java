@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * @author kangyonggan
- * @since 2016/12/2
+ * @since 2017/1/8
  */
 @Controller
 @RequestMapping("/")
@@ -116,4 +116,5 @@ public class LoginController extends BaseController {
         subject.logout();
         return "redirect:/";
     }
+
 }

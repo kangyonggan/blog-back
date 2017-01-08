@@ -1,10 +1,10 @@
-<div class="space-30"></div>
+<#assign home_name="工作台"/>
+<#assign hasSidebar=true/>
 
-<div class="col-lg-4 col-lg-offset-4 col-md-6 col-sm-6 col-sm-offset-3 col-xs-12">
-<@block name="content"/>
-</div>
-
+<@override name="app-script">
 <script src="${ctx}/static/libs/jquery/jquery.form.min.js"></script>
 <script src="${ctx}/static/libs/jquery/jquery.validate.min.js"></script>
 <script src="${ctx}/static/libs/jquery/jquery.validate.extends.js"></script>
-<@block name="script"/>
+</@override>
+
+<@extends name="../layout.ftl"/>

@@ -60,7 +60,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         // 基于Permission的权限信息
         for (Menu menu : menus) {
-            info.addStringPermission(menu.getCode());
+            addStringPermission(info, menu);
         }
 
         return info;
@@ -107,5 +107,15 @@ public class MyShiroRealm extends AuthorizingRealm {
         matcher.setHashIterations(AppConstants.HASH_INTERATIONS);
 
         setCredentialsMatcher(matcher);
+    }
+
+    private void addStringPermission(SimpleAuthorizationInfo info, Menu menu) {
+        info.addStringPermission(menu.getCode());
+
+        if (menu.getLeaf() != null) {
+            for (Menu subMenu : menu.getLeaf()) {
+                addStringPermission(info, subMenu);
+            }
+        }
     }
 }
