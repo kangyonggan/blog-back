@@ -20,12 +20,6 @@
                 <span class="invoice-info-label">时间:</span>
                 <span class="blue"><@c.relative_date datetime=article.createdTime/></span>
             </div>
-
-            <div class="widget-toolbar hidden-480">
-                <a href="javascript:">
-                    <i class="ace-icon fa fa-print"></i>
-                </a>
-            </div>
         </div>
 
         <div class="space-10"></div>
