@@ -1,7 +1,5 @@
 <#assign ctx="${(rca.contextPath)!''}">
 
-<link rel="stylesheet" href="${ctx}/static/libs/markdown/styles/shCoreDefault.css"/>
-
 <div class="space-20"></div>
 
 <div class="col-xs-10 col-xs-offset-1">
@@ -52,14 +50,6 @@
     </div>
 </div>
 
-<script src="${ctx}/static/libs/markdown/scripts/shCore.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushXml.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushSql.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushPowerShell.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushJScript.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushJava.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushCss.js"></script>
-<script src="${ctx}/static/libs/markdown/scripts/shBrushBash.js"></script>
 <script>
     var title = '${article.title}';
 </script>
