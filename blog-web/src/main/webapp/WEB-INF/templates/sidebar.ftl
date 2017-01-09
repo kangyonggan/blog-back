@@ -30,15 +30,17 @@
     </div>
 
     <ul class="nav nav-list">
+    <#if menus?size gt 0>
         <li>
             <a data-url="index" href="#index">
                 <i class="menu-icon fa fa-dashboard"></i>
                 <span class="menu-text">工作台</span>
             </a>
         </li>
-    <#list menus[0].leaf as menu>
-        <#include "menu.ftl"/>
-    </#list>
+        <#list menus[0].leaf as menu>
+            <#include "menu.ftl"/>
+        </#list>
+    </#if>
     </ul>
 
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
