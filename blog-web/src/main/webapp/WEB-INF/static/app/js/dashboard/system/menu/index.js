@@ -1,4 +1,6 @@
 $(function () {
+    updateState("system/menu");
+
     var $form_delete = $('#menus-form-delete');
 
     var showRemoveNotify = function (response) {
