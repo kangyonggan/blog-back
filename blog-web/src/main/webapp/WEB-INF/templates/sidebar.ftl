@@ -30,7 +30,13 @@
     </div>
 
     <ul class="nav nav-list">
-    <#list menus as menu>
+        <li>
+            <a data-url="index" href="#index">
+                <i class="menu-icon fa fa-dashboard"></i>
+                <span class="menu-text">工作台</span>
+            </a>
+        </li>
+    <#list menus[0].leaf as menu>
         <#include "menu.ftl"/>
     </#list>
     </ul>
