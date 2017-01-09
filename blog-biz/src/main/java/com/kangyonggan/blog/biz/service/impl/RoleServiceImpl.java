@@ -97,7 +97,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
     @Override
     @LogTime
-    @CacheDeleteAll("menu:username||menu:roleCode:{0}")
+    @CacheDeleteAll("menu:username||menu:role:{0}")
     public void updateRoleMenus(String code, String menuCodes) {
         deleteRoleMenus(code);
 

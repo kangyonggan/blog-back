@@ -55,7 +55,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Override
     @LogTime
-    @CacheDeleteAll("menu:all")
+    @CacheDeleteAll("menu")
     public void saveMenu(Menu menu) {
         super.insertSelective(menu);
     }
@@ -82,11 +82,13 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
     }
 
     @Override
+    @CacheGetOrSave("menu:role:{0}")
     public List<Menu> findMenus4Role(String code) {
         return menuMapper.selectMenus4Role(code);
     }
 
     @Override
+    @CacheGetOrSave("menu:all")
     public List<Menu> findAllMenus() {
         Example example = new Example(Menu.class);
         example.setOrderByClause("sort asc");
