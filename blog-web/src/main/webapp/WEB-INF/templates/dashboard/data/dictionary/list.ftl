@@ -14,7 +14,7 @@
 
 <div class="space-10"></div>
 
-<form class="form-inline items-form" method="get" novalidate>
+<form class="form-inline" method="get" novalidate>
     <div class="form-group">
         <select name="type" class="form-control">
             <option value="">全部类型</option>
