@@ -33,11 +33,7 @@
     </delete>
 
     <delete id="deleteRoleMenus">
-        DELETE FROM role_menu WHERE role_code = #{code} AND
-        menu_code IN
-        <foreach collection="menuCodes" item="menuCode" open="(" separator="," close=")">
-            #{menuCode}
-        </foreach>
+        DELETE FROM role_menu WHERE role_code = #{code}
     </delete>
 
     <insert id="insertRoleMenus">

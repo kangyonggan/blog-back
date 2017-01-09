@@ -64,4 +64,19 @@ public interface MenuService {
      */
     void deleteMenu(Menu menu);
 
+    /**
+     * 查找角色菜单
+     *
+     * @param code
+     * @return
+     */
+    List<Menu> findMenus4Role(String code);
+
+    /**
+     * 查找所有菜单
+     *
+     * @return
+     */
+    List<Menu> findAllMenus();
+
 }

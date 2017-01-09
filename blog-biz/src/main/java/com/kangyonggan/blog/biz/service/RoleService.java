@@ -71,8 +71,7 @@ public interface RoleService {
      * 更新角色菜单
      *
      * @param code
-     * @param roleMenus
      * @param menuCodes
      */
-    void updateRoleMenus(String code, List<Menu> roleMenus, String menuCodes);
+    void updateRoleMenus(String code, String menuCodes);
 }

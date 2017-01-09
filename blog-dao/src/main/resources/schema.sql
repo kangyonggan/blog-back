@@ -172,16 +172,16 @@ INSERT INTO menu
 VALUES
   ('DASHBOARD', '工作台', '', 'index', 0, 'menu-icon fa fa-dashboard'),
 
-  ('SYSTEM', '系统', '', 'system', 1, 'menu-icon fa fa-cogs'),
+  ('SYSTEM', '系统', 'DASHBOARD', 'system', 1, 'menu-icon fa fa-cogs'),
   ('SYSTEM_USER', '用户管理', 'SYSTEM', 'system/user', 0, ''),
   ('SYSTEM_ROLE', '角色管理', 'SYSTEM', 'system/role', 1, ''),
   ('SYSTEM_MENU', '菜单管理', 'SYSTEM', 'system/menu', 2, ''),
 
-  ('DATA', '数据', '', 'data', 2, 'menu-icon fa fa-gavel'),
+  ('DATA', '数据', 'DASHBOARD', 'data', 2, 'menu-icon fa fa-gavel'),
   ('DATA_CACHE', '缓存管理', 'DATA', 'data/cache', 0, ''),
   ('DATA_DICTIONARY', '数据字典', 'DATA', 'data/dictionary', 1, ''),
 
-  ('USER', '我的', '', 'user', 3, 'menu-icon fa fa-user'),
+  ('USER', '我的', 'DASHBOARD', 'user', 3, 'menu-icon fa fa-user'),
   ('USER_PROFILE', '个人信息', 'USER', 'user/profile', 0, ''),
   ('USER_PASSWORD', '修改密码', 'USER', 'user/password', 1, ''),
   ('USER_ARTICLE', '我的文章', 'USER', 'user/article', 2, '');

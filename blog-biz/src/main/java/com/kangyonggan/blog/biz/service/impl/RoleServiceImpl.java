@@ -98,10 +98,8 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     @Override
     @LogTime
     @CacheDeleteAll("menu:username||menu:roleCode:{0}")
-    public void updateRoleMenus(String code, List<Menu> role_menus, String menuCodes) {
-        if (Collections3.isNotEmpty(role_menus)) {
-            deleteRoleMenus(code, Collections3.extractToList(role_menus, "code"));
-        }
+    public void updateRoleMenus(String code, String menuCodes) {
+        deleteRoleMenus(code);
 
         if (StringUtils.isNotEmpty(menuCodes)) {
             roleMapper.insertRoleMenus(code, Arrays.asList(menuCodes.split(",")));
@@ -112,10 +110,9 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
      * 删除角色菜单
      *
      * @param code
-     * @param menuCodes
      */
     @LogTime
-    private void deleteRoleMenus(String code, List<String> menuCodes) {
-        roleMapper.deleteRoleMenus(code, menuCodes);
+    private void deleteRoleMenus(String code) {
+        roleMapper.deleteRoleMenus(code);
     }
 }
