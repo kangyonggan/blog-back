@@ -249,7 +249,7 @@ public class DashboardUserArticleController extends BaseController {
      * @param attachmentId
      * @return
      */
-    @RequestMapping(value = "{sourceId:[\\d]+}/attachment/{attachmentId:[\\d]}/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "{sourceId:[\\d]+}/attachment/{attachmentId:[\\d]+}/delete", method = RequestMethod.GET)
     @ResponseBody
     @RequiresPermissions("USER_ARTICLE")
     public Map<String, Object> deleteAttachment(@PathVariable("sourceId") Long sourceId, @PathVariable("attachmentId") Long attachmentId) {
