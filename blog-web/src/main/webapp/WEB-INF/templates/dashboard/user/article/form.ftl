@@ -60,10 +60,6 @@
 
         <div class="col-xs-10 col-xs-offset-1">
             <div id="form-attachments">
-                <#if article.id??>
-                    <div class="center">编辑时不允许修改原有的附件，但可以添加新的附件</div>
-                    <div class="space-10"></div>
-                </#if>
                 <input type="file" name="attachment[]"/>
             </div>
         </div>
