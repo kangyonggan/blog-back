@@ -41,7 +41,7 @@
 
     <div class="hr hr-18 dotted"></div>
 
-    <#if content.id?? && attachments?size gt 0>
+    <#if article.id?? && attachments?size gt 0>
         <div class="form-group old-attachments">
             <label class="col-xs-10 col-xs-offset-1 pull-left">原附件</label>
 
