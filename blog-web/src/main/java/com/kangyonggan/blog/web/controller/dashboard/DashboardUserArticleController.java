@@ -152,12 +152,13 @@ public class DashboardUserArticleController extends BaseController {
     public String edit(@PathVariable("id") Long id, Model model) {
         CommonResponse<Dictionary> response = apiDictionaryService.findDictionariesByType(DictionaryType.ARTICLE_TAG.getType());
         List<Dictionary> dictionaries = response.getList();
-
         List<Dictionary> tags = apiDictionaryService.findDictionariesByArticleId(id).getList();
+        AttachmentResponse<Article> attachmentResponse = apiArticleService.getArticle(id);
 
-        model.addAttribute("article", apiArticleService.getArticle(id).getData());
+        model.addAttribute("article", attachmentResponse.getData());
         model.addAttribute("dictionaries", dictionaries);
         model.addAttribute("tags", Collections3.extractToList(tags, "code"));
+        model.addAttribute("attachments", attachmentResponse.getAttachments());
         return getPathForm();
     }
 
@@ -239,6 +240,21 @@ public class DashboardUserArticleController extends BaseController {
         model.addAttribute("article", article);
         model.addAttribute("attachments", attachments);
         return "web/article/detail";
+    }
+
+    /**
+     * 删除附件
+     *
+     * @param sourceId
+     * @param attachmentId
+     * @return
+     */
+    @RequestMapping(value = "{sourceId:[\\d]+}/attachment/{attachmentId:[\\d]}/delete", method = RequestMethod.GET)
+    @ResponseBody
+    @RequiresPermissions("USER_ARTICLE")
+    public Map<String, Object> deleteAttachment(@PathVariable("sourceId") Long sourceId, @PathVariable("attachmentId") Long attachmentId) {
+        apiArticleService.deleteArticleAttachment(sourceId, attachmentId);
+        return getResultMap();
     }
 
     /**

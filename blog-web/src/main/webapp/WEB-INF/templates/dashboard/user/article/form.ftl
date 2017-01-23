@@ -41,8 +41,22 @@
 
     <div class="hr hr-18 dotted"></div>
 
+    <#if content.id?? && attachments?size gt 0>
+        <div class="form-group old-attachments">
+            <label class="col-xs-10 col-xs-offset-1 pull-left">原附件</label>
+
+            <div class="col-xs-10 col-xs-offset-1 old-attachments-list">
+                <@apps>
+                <#list attachments as attachment>
+                    <#include "attachment.ftl"/>
+                </#list>
+                </@apps>
+            </div>
+        </div>
+    </#if>
+
     <div class="form-group">
-        <label class="col-xs-10 col-xs-offset-1 pull-left">附件</label>
+        <label class="col-xs-10 col-xs-offset-1 pull-left"><#if article.id?? && attachments?size gt 0>新</#if>附件</label>
 
         <div class="col-xs-10 col-xs-offset-1">
             <div id="form-attachments">
