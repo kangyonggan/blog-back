@@ -62,6 +62,9 @@ public class LoginController extends BaseController {
             return resultMap;
         }
 
+        // 清除验证码
+        session.removeAttribute(AppConstants.KEY_CAPTCHA);
+
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         final Subject subject = SecurityUtils.getSubject();
 
@@ -99,8 +102,6 @@ public class LoginController extends BaseController {
         }
         resultMap.put(ERR_MSG, redirectUrl);
 
-        // 清除验证码
-        session.removeAttribute(AppConstants.KEY_CAPTCHA);
         return resultMap;
     }
 
