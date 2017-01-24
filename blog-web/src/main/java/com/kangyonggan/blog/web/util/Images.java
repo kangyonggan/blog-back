@@ -1,5 +1,6 @@
 package com.kangyonggan.blog.web.util;
 
+import com.kangyonggan.blog.biz.util.FtpUtil;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import net.coobird.thumbnailator.Thumbnails;

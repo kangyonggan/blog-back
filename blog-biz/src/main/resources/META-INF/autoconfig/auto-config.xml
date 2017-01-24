@@ -45,9 +45,9 @@
         <property name="blog.ftp.url" description="ftp文件路径" defaultValue="http://kangyonggan.com:6789"/>
     </group>
     <script>
-        <generate template="app.properties"/>
-        <generate template="applicationContext-datasource.xml"/>
-        <generate template="applicationContext-redis.xml"/>
-        <generate template="log4j2.xml"/>
+        <generate template="app.properties" charset="UTF-8"/>
+        <generate template="applicationContext-datasource.xml" charset="UTF-8"/>
+        <generate template="applicationContext-redis.xml" charset="UTF-8"/>
+        <generate template="log4j2.xml" charset="UTF-8"/>
     </script>
 </config>

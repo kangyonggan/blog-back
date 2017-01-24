@@ -1,6 +1,5 @@
-package com.kangyonggan.blog.web.util;
+package com.kangyonggan.blog.biz.util;
 
-import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;

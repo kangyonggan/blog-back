@@ -5,14 +5,16 @@ import com.kangyonggan.api.model.constants.ResponseState;
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
 import com.kangyonggan.api.model.vo.Article;
 import com.kangyonggan.api.service.ApiArticleService;
+import com.kangyonggan.blog.biz.service.impl.TYCQService;
+import com.kangyonggan.blog.biz.util.FtpUtil;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.biz.util.RSSFeedWriter;
 import com.kangyonggan.blog.common.util.MarkdownUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import com.kangyonggan.blog.model.rss.Feed;
 import com.kangyonggan.blog.model.rss.FeedMessage;
-import com.kangyonggan.blog.web.util.FtpUtil;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +30,7 @@ import java.util.List;
  * @since 2017/1/24
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/rss")
 @Log4j2
 public class RssController {
 
@@ -40,13 +42,16 @@ public class RssController {
     @Resource
     private ApiArticleService apiArticleService;
 
+    @Autowired
+    private TYCQService tycqService;
+
     /**
-     * 刷新rss
+     * 刷新blog
      *
      * @return
      */
-    @RequestMapping(value = "rss/refresh", method = RequestMethod.GET)
-    public String refresh() {
+    @RequestMapping(value = "blog", method = RequestMethod.GET)
+    public String refreshBlog() {
 
         Feed feed = new Feed();
         feed.setDescription("记录生活、工作和学习时的笔记心得等");
@@ -91,6 +96,17 @@ public class RssController {
         }
 
         return "failure";
+    }
+
+    /**
+     *
+     * 刷新天域苍穹
+     *
+     * @return
+     */
+    @RequestMapping(value = "tycq", method = RequestMethod.GET)
+    public String refreshTYCQ() {
+        return tycqService.refresh();
     }
 
 }

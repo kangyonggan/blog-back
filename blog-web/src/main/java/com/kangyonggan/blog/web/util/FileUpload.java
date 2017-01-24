@@ -1,6 +1,7 @@
 package com.kangyonggan.blog.web.util;
 
 import com.kangyonggan.api.common.util.DateUtils;
+import com.kangyonggan.blog.biz.util.FtpUtil;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import org.apache.commons.fileupload.FileUploadException;
