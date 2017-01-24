@@ -1,15 +1,17 @@
 package com.kangyonggan.blog.web.controller.web;
 
+import com.kangyonggan.api.common.util.DateUtils;
 import com.kangyonggan.api.model.constants.ResponseState;
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
 import com.kangyonggan.api.model.vo.Article;
 import com.kangyonggan.api.service.ApiArticleService;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
+import com.kangyonggan.blog.biz.util.RSSFeedWriter;
 import com.kangyonggan.blog.common.util.MarkdownUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
+import com.kangyonggan.blog.model.rss.Feed;
+import com.kangyonggan.blog.model.rss.FeedMessage;
 import com.kangyonggan.blog.web.util.FtpUtil;
-import com.rsslibj.elements.Channel;
-import com.rsslibj.elements.Item;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +35,8 @@ public class RssController {
     private static final String BASE_URL = "http://kangyonggan.com/#article/";
     private static final String RSS_NAME = "blog.xml";
 
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Resource
     private ApiArticleService apiArticleService;
 
@@ -44,9 +48,11 @@ public class RssController {
     @RequestMapping(value = "rss/refresh", method = RequestMethod.GET)
     public String refresh() {
 
-        Channel channel = new Channel();
-        channel.setTitle("朕的博客");
-        channel.setLink("http://kangyonggan.com");
+        Feed feed = new Feed();
+        feed.setDescription("记录生活、工作和学习时的笔记心得等");
+        feed.setLink("http://kangyonggan.com");
+        feed.setTitle("朕的博客");
+        List<FeedMessage> feedMessages = feed.getFeedMessages();
 
         try {
             CommonResponse<Article> response = apiArticleService.findAllArticles();
@@ -56,13 +62,15 @@ public class RssController {
 
                 for (int i = 0; i < list.size(); i++) {
                     Article article = list.get(i);
-                    Item item = new Item();
-                    item.setTitle(article.getTitle());
-                    item.setLink(BASE_URL + article.getId());
-                    item.setDcDate(article.getUpdatedTime());
-                    item.setDescription(MarkdownUtil.markdownToHtml(article.getContent()));
+                    FeedMessage feedMessage = new FeedMessage();
 
-                    channel.addItem(i, item);
+                    feedMessage.setTitle(article.getTitle());
+                    feedMessage.setLink(BASE_URL + article.getId());
+                    feedMessage.setDescription(MarkdownUtil.markdownToHtml(article.getContent()));
+                    Date date = article.getUpdatedTime();
+                    date.setTime(date.getTime() - 8 * 60 * 60 * 1000);
+                    feedMessage.setPubDate(format.format(date));
+                    feedMessages.add(feedMessage);
                 }
 
                 File file = new File(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + RSS_NAME);
@@ -71,10 +79,7 @@ public class RssController {
                     file.createNewFile();
                 }
 
-                PrintWriter writer = new PrintWriter(new FileWriter(file));
-                writer.write(channel.getFeed("rss"));
-                writer.flush();
-                writer.close();
+                new RSSFeedWriter(feed, file.getPath()).write();
 
                 FtpUtil.upload(RSS_NAME, "rss/");
 

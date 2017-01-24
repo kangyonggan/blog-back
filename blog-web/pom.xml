@@ -116,14 +116,6 @@
             <artifactId>fastjson</artifactId>
         </dependency>
         <dependency>
-            <groupId>rsslibj</groupId>
-            <artifactId>rsslibj</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>exml</groupId>
-            <artifactId>exml</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
