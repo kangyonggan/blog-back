@@ -29,7 +29,7 @@ public class RssController {
 
     private static final String BASE_URL = "http://kangyonggan.com/#article/";
 
-    private static final String RSS_PATH = "/kyg/upload/rss.xml";
+    private static final String RSS_PATH = "/kyg/rss/blog.xml";
 //    private static final String RSS_PATH = "/Users/kyg/rss.xml";
 
     @Resource
