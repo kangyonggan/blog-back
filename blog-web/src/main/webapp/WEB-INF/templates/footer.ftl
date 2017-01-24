@@ -10,7 +10,7 @@
 				Build By <@spring.message "app.author"/>
 			</span>
         <@apps>
-            <a href="${ftpUrl}/rss/blog.xml" target="_blank">
+            <a href="http://kangyonggan.com:6789/rss/blog.xml" target="_blank">
                 <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
             </a>
         </@apps>
