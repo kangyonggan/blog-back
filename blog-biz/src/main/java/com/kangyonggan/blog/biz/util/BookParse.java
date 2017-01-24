@@ -36,7 +36,6 @@ public class BookParse {
         return null;
     }
 
-
     /**
      * 获取章节详情
      *
@@ -46,6 +45,19 @@ public class BookParse {
      * @return
      */
     public static FeedMessage getChapter(String url, String titleSelect, String contentSelect) {
+        return getChapter(url, titleSelect, contentSelect, 1);
+    }
+
+    /**
+     * 获取章节详情
+     *
+     * @param url
+     * @param titleSelect
+     * @param contentSelect
+     * @param tryCount
+     * @return
+     */
+    public static FeedMessage getChapter(String url, String titleSelect, String contentSelect, int tryCount) {
         FeedMessage feedMessage = new FeedMessage();
         Date date = new Date();
         date.setTime(date.getTime() - 8 * 60 * 60 * 1000);
@@ -62,7 +74,12 @@ public class BookParse {
             Element content = doc.select(contentSelect).get(0);
             feedMessage.setDescription(content.html());
         } catch (Exception e) {
-            log.error("解析章节详情出错啦，url:" + url, e);
+            log.error("解析章节详情出错啦，url:" + url + ",这是第" + tryCount + "此尝试！，一共尝试10次", e);
+            if (tryCount <= 10) {
+                getChapter(url, titleSelect, contentSelect, tryCount + 1);
+            } else {
+                log.error("一共尝试了10次都失败了,url:" + url);
+            }
         }
         return feedMessage;
     }
