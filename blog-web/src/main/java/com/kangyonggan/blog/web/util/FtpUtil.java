@@ -3,6 +3,7 @@ package com.kangyonggan.blog.web.util;
 import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.model.constants.AppConstants;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
@@ -25,10 +26,11 @@ public class FtpUtil {
     /**
      * 登录ftp服务器
      *
+     * @param uploadPath
      * @return
      * @throws Exception
      */
-    private static FTPClient connect() throws Exception {
+    private static FTPClient connect(String uploadPath) throws Exception {
         FTPClient ftp = new FTPClient();
         int reply;
         ftp.connect(ip, port);
@@ -40,7 +42,11 @@ public class FtpUtil {
             ftp.disconnect();
             return null;
         }
-        ftp.changeWorkingDirectory(path);
+        if (StringUtils.isEmpty(uploadPath)) {
+            ftp.changeWorkingDirectory(path);
+        } else {
+            ftp.changeWorkingDirectory(uploadPath);
+        }
         log.info("连接文件服务器成功, 上传路径path:" + path);
         return ftp;
     }
@@ -52,10 +58,21 @@ public class FtpUtil {
      * @return 返回在文件服务器的相对路径
      */
     public static String upload(String name) {
+        return upload(name, null);
+    }
+
+    /**
+     * 上传的文件
+     *
+     * @param name
+     * @param path
+     * @return 返回在文件服务器的相对路径
+     */
+    public static String upload(String name, String path) {
         FTPClient ftp = null;
         FileInputStream in = null;
         try {
-            ftp = connect();
+            ftp = connect(path);
             File file = new File(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + name);
             in = new FileInputStream(file);
             ftp.storeFile(file.getName(), in);
@@ -78,5 +95,4 @@ public class FtpUtil {
         }
         return "";
     }
-
 }

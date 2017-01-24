@@ -4,7 +4,10 @@ import com.kangyonggan.api.model.constants.ResponseState;
 import com.kangyonggan.api.model.dto.reponse.CommonResponse;
 import com.kangyonggan.api.model.vo.Article;
 import com.kangyonggan.api.service.ApiArticleService;
+import com.kangyonggan.blog.biz.util.PropertiesUtil;
 import com.kangyonggan.blog.common.util.MarkdownUtil;
+import com.kangyonggan.blog.model.constants.AppConstants;
+import com.kangyonggan.blog.web.util.FtpUtil;
 import com.rsslibj.elements.Channel;
 import com.rsslibj.elements.Item;
 import lombok.extern.log4j.Log4j2;
@@ -28,9 +31,7 @@ import java.util.List;
 public class RssController {
 
     private static final String BASE_URL = "http://kangyonggan.com/#article/";
-
-    private static final String RSS_PATH = "/kyg/rss/blog.xml";
-//    private static final String RSS_PATH = "/Users/kyg/rss.xml";
+    private static final String RSS_NAME = "blog.xml";
 
     @Resource
     private ApiArticleService apiArticleService;
@@ -64,7 +65,7 @@ public class RssController {
                     channel.addItem(i, item);
                 }
 
-                File file = new File(RSS_PATH);
+                File file = new File(PropertiesUtil.getProperties(AppConstants.FILE_PATH_ROOT) + RSS_NAME);
 
                 if (!file.exists()) {
                     file.createNewFile();
@@ -74,6 +75,8 @@ public class RssController {
                 writer.write(channel.getFeed("rss"));
                 writer.flush();
                 writer.close();
+
+                FtpUtil.upload(RSS_NAME, "rss/");
 
                 log.info("rss刷新成功");
                 return "success";
